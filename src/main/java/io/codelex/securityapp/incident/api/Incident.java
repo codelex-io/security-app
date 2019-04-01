@@ -1,4 +1,7 @@
-package io.codelex.securityapp.api;
+package io.codelex.securityapp.incident.api;
+
+import io.codelex.securityapp.common.Location;
+import io.codelex.securityapp.clients.api.Client;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
