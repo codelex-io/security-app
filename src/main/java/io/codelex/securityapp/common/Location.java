@@ -1,4 +1,4 @@
-package io.codelex.securityapp.api;
+package io.codelex.securityapp.common;
 
 import javax.validation.constraints.NotEmpty;
 
