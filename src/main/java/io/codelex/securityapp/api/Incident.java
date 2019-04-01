@@ -1,10 +1,10 @@
 package io.codelex.securityapp.api;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class Incident {
+
 
     @NotEmpty
     private Client client;
