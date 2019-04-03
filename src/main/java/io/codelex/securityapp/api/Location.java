@@ -1,17 +1,19 @@
-package io.codelex.securityapp.common;
+package io.codelex.securityapp.api;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotEmpty;
 
 public class Location {
-
     @NotEmpty
     private String latitude;
-
     @NotEmpty
     private String longitude;
-
-
-    public Location(@NotEmpty String latitude, @NotEmpty String longitude) {
+    
+    @JsonCreator
+    public Location(@JsonProperty("latitude") String latitude,
+                    @JsonProperty("longitude") String longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -20,15 +22,7 @@ public class Location {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
     public String getLongitude() {
         return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
     }
 }
