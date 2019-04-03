@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-//Sends DispatchRequest for confirmation to the nearest calculated Unit
 @RestController
 @RequestMapping("/unit-api")
 public class UnitController {
