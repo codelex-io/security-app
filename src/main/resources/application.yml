@@ -1,1 +1,11 @@
-
+spring:
+  datasource:
+    username: codelex
+    password: codelex
+    url: jdbc:postgresql://localhost:5432/security_app
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:/liquibase/updates.xml
+    enabled: true
