@@ -1,45 +1,40 @@
 package io.codelex.securityapp.units.api;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.codelex.securityapp.common.Location;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 public class Unit {
 
-    @NotEmpty
+    @NotNull
     private long id;
-
+    @NotNull
     private boolean isAvailable;
-
-    private Location location;
-
-    public Unit(@NotEmpty long id, boolean isAvailable, Location location) {
+    @Valid
+    @NotNull
+    private Location currentLocation;
+    
+    @JsonCreator
+    public Unit(@JsonProperty("id") long id,
+                @JsonProperty("isAvailable") boolean isAvailable,
+                @JsonProperty("currentLocation") Location currentLocation) {
         this.id = id;
         this.isAvailable = isAvailable;
-        this.location = location;
+        this.currentLocation = currentLocation;
     }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public boolean isAvailable() {
         return isAvailable;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
+    public Location getCurrentLocation() {
+        return currentLocation;
     }
 }
