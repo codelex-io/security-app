@@ -11,7 +11,7 @@
         <createTable
                 tableName="clients">
             <column
-                    name="client_id"
+                    name="id"
                     type="bigint"
                     defaultValueSequenceNext="clients_seq"
             >
@@ -39,80 +39,6 @@
             </column>
             <column
                     name="country"
-                    type="varchar(255)">
-                <constraints
-                        nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="create incidents table" author="martins">
-        <createSequence
-                sequenceName="incidents_seq"/>
-        <createTable
-                tableName="incidents">
-            <column
-                    name="id"
-                    type="bigint"
-                    defaultValueSequenceNext="incidents_seq"
-            >
-                <constraints
-                        primaryKey="true"
-                        nullable="false"
-                        primaryKeyName="pk_incidents"
-                />
-            </column>
-            <column name="client_id"
-                    type="bigint">
-                <constraints
-                        nullable="false"/>
-            </column>
-            <column name="unit_id"
-                    type="bigint">
-                <constraints
-                        nullable="false"/>
-            </column>
-            <column name="latitude"
-                    type="varchar(255)">
-                <constraints
-                        nullable="false"/>
-            </column>
-            <column name="longitude"
-                    type="varchar(255)">
-                <constraints
-                        nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-
-
-    <changeSet id="create units table" author="martins">
-        <createSequence
-                sequenceName="units_seq"/>
-        <createTable
-                tableName="units">
-            <column
-                    name="id"
-                    type="bigint"
-                    defaultValueSequenceNext="units_seq"
-            >
-                <constraints
-                        primaryKey="true"
-                        nullable="false"
-                        primaryKeyName="pk_units"
-                />
-            </column>
-            <column name="unit_id"
-                    type="bigint">
-                <constraints
-                        nullable="true"/>
-            </column>
-            <column name="latitude"
-                    type="varchar(255)">
-                <constraints
-                        nullable="false"/>
-            </column>
-            <column name="longitude"
                     type="varchar(255)">
                 <constraints
                         nullable="false"/>

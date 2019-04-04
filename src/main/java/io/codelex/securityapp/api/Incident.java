@@ -3,19 +3,10 @@ package io.codelex.securityapp.api;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "incidents")
 public class Incident {
 
-    @Id
     private long id;
-
-    @ManyToOne
     private Client client;
-
-    @ManyToOne
     private Location incidentLocation;
     
     @JsonCreator

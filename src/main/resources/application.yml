@@ -1,7 +1,5 @@
 spring:
   datasource:
-    username: codelex
-    password: codelex
     url: jdbc:postgresql://localhost:5432/security_app
   jpa:
     hibernate:

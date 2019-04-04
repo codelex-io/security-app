@@ -7,16 +7,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "units")
 public class Unit {
 
     @Id
-    @NotNull
     private long id;
-    @NotEmpty
     private Location location;
-    @NotNull
     private Boolean available;
     
     @JsonCreator
