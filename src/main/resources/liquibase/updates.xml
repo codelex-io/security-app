@@ -17,7 +17,7 @@
             >
                 <constraints
                         primaryKey="true"
-                        nullable="true"
+                        nullable="false"
                         primaryKeyName="pk_clients"
                 />
             </column>
@@ -37,11 +37,87 @@
                         nullable="false"
                 />
             </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="create units table" author="martins">
+        <createSequence
+                sequenceName="units_seq"/>
+        <createTable
+                tableName="units">
             <column
-                    name="country"
+                    name="id"
+                    type="bigint"
+                    defaultValueSequenceNext="units_seq"
+            >
+                <constraints
+                        primaryKey="true"
+                        nullable="false"
+                        primaryKeyName="pk_units"
+                />
+            </column>
+            <column
+                    name="latitude"
+                    type="varchar(255)"
+            >
+                <constraints
+                        primaryKey="false"
+                        nullable="false"
+                />
+            </column>
+            <column
+                    name="longitude"
                     type="varchar(255)">
                 <constraints
-                        nullable="false"/>
+                        nullable="false"
+                />
+            </column>
+            <column
+                    name="available"
+                    type="boolean">
+                <constraints
+                        nullable="false"
+                />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="create incidents table" author="martins">
+        <createSequence
+                sequenceName="incidents_seq"/>
+        <createTable
+                tableName="incidents">
+            <column
+                    name="id"
+                    type="bigint"
+                    defaultValueSequenceNext="incidents_seq"
+            >
+                <constraints
+                        primaryKey="true"
+                        nullable="false"
+                        primaryKeyName="pk_incidents"
+                />
+            </column>
+            <column
+                    name="client"
+                    type="bigint"
+            >
+                <constraints
+                        primaryKey="false"
+                        nullable="false"
+                />
+            </column>
+            <column
+                    name="latitude"
+                    type="varchar(255)">
+                <constraints
+                        nullable="false"
+                />
+            </column>
+            <column
+                    name="longitude"
+                    type="varchar(255)">
+                <constraints
+                        nullable="false"
+                />
             </column>
         </createTable>
     </changeSet>
