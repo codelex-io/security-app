@@ -3,13 +3,18 @@ package io.codelex.securityapp.api;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "clients")
 public class Client {
+
+    @Id
     @NotNull
     private long id;
-    @NotEmpty
+    @ManyToOne
     private String firstName;
     @NotEmpty
     private String lastName;

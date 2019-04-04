@@ -1,0 +1,10 @@
+{
+  "client": {
+    "firstName": "Janis",
+    "lastName": "Berzins"
+  },
+  "incidentLocation": {
+    "longitude": "1",
+    "latitude": "2"
+  }
+}
