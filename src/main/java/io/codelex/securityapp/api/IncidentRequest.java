@@ -7,15 +7,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 public class IncidentRequest {
-    @NotNull
-    private long id;
-    @Valid
-    @NotNull
+
+    private Long id;
     private Incident incident;
-    
-    @JsonCreator
-    public IncidentRequest(@JsonProperty("id") long id,
-                           @JsonProperty("incident") Incident incident) {
+
+    public IncidentRequest(Long id,
+                           Incident incident) {
         this.id = id;
         this.incident = incident;
     }

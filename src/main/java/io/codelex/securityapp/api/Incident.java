@@ -1,26 +1,42 @@
 package io.codelex.securityapp.api;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import java.math.BigDecimal;
 
 public class Incident {
 
+    @Id
     private long id;
+    @ManyToOne
     private Client client;
-    private Location incidentLocation;
-    
-    @JsonCreator
-    public Incident(@JsonProperty("client") Client client,
-                    @JsonProperty("incidentLocation") Location incidentLocation) {
+    @OneToOne
+    private BigDecimal latitude;
+    @OneToOne
+    private BigDecimal longitude;
+
+    public Incident(long id, Client client, BigDecimal latitude, BigDecimal longitude) {
+        this.id = id;
         this.client = client;
-        this.incidentLocation = incidentLocation;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Client getClient() {
         return client;
     }
 
-    public Location getIncidentLocation() {
-        return incidentLocation;
+    public long getId() {
+        return id;
+    }
+
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public BigDecimal getLongitude() {
+        return longitude;
     }
 }

@@ -97,7 +97,7 @@
                 />
             </column>
             <column
-                    name="client"
+                    name="client_id"
                     type="bigint"
             >
                 <constraints
@@ -107,14 +107,14 @@
             </column>
             <column
                     name="latitude"
-                    type="varchar(255)">
+                    type="decimal">
                 <constraints
                         nullable="false"
                 />
             </column>
             <column
                     name="longitude"
-                    type="varchar(255)">
+                    type="decimal">
                 <constraints
                         nullable="false"
                 />

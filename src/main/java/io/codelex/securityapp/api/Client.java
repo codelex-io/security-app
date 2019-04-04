@@ -1,8 +1,5 @@
 package io.codelex.securityapp.api;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 
 @Entity
@@ -13,11 +10,9 @@ public class Client {
     private long id;
     private String firstName;
     private String lastName;
-    
-    @JsonCreator
-    public Client(@JsonProperty("id") long id,
-                  @JsonProperty("firstName") String firstName,
-                  @JsonProperty("lastName") String lastName) {
+
+    public Client(long id, String firstName,
+                  String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

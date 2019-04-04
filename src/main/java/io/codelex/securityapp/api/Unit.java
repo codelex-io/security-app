@@ -1,25 +1,22 @@
 package io.codelex.securityapp.api;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+
+import java.math.BigDecimal;
 
 public class Unit {
 
     @Id
     private long id;
-    private Location location;
+
+    private BigDecimal latitude;
+    private BigDecimal longitude;
     private Boolean available;
-    
-    @JsonCreator
-    public Unit(@JsonProperty long id,
-                @JsonProperty Location location,
-                @JsonProperty Boolean available) {
+
+    public Unit(long id, BigDecimal latitude, BigDecimal longitude, Boolean available) {
         this.id = id;
-        this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.available = available;
     }
 
@@ -27,8 +24,12 @@ public class Unit {
         return id;
     }
 
-    public Location getLocation() {
-        return location;
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public BigDecimal getLongitude() {
+        return longitude;
     }
 
     public Boolean getAvailable() {
