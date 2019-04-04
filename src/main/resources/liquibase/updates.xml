@@ -102,7 +102,7 @@
             >
                 <constraints
                         primaryKey="false"
-                        nullable="false"
+                        nullable="true"
                 />
             </column>
             <column
@@ -120,5 +120,19 @@
                 />
             </column>
         </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="incidents"
+                baseColumnNames="client_id"
+                constraintName="fk_incidents_clientId_clients_id"
+                referencedTableName="clients"
+                referencedColumnNames="id"
+                onDelete="SET NULL"
+        />
+        <createIndex
+                tableName="incidents"
+                indexName="idx_incidents_client_id">
+            <column name="client_id"/>
+        </createIndex>
     </changeSet>
 </databaseChangeLog>

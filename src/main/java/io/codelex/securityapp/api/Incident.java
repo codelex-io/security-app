@@ -1,6 +1,5 @@
 package io.codelex.securityapp.api;
 
-
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
