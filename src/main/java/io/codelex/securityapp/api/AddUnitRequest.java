@@ -1,32 +1,23 @@
 package io.codelex.securityapp.api;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "units")
-public class Unit {
-
-    @Id
-    private long id;
+public class AddUnitRequest {
 
     private BigDecimal latitude;
     private BigDecimal longitude;
     private Boolean available;
-
-    public Unit(long id, BigDecimal latitude, BigDecimal longitude, Boolean available) {
-        this.id = id;
+    
+    @JsonCreator
+    public AddUnitRequest(@JsonProperty("latitude") BigDecimal latitude,
+                          @JsonProperty("longitude") BigDecimal longitude,
+                          @JsonProperty("available") Boolean available) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.available = available;
-    }
-
-    public Unit() {
-    }
-
-    public long getId() {
-        return id;
     }
 
     public BigDecimal getLatitude() {
@@ -40,5 +31,4 @@ public class Unit {
     public Boolean getAvailable() {
         return available;
     }
-    
 }
