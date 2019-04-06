@@ -1,19 +1,19 @@
 package io.codelex.securityapp.api;
 
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "incidents")
 public class Incident {
 
     @Id
     private long id;
     @ManyToOne
     private Client client;
-    @OneToOne
     private BigDecimal latitude;
-    @OneToOne
     private BigDecimal longitude;
 
     public Incident(long id, Client client, BigDecimal latitude, BigDecimal longitude) {

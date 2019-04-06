@@ -14,10 +14,9 @@ public class IncidentController {
     public ResponseEntity<Incident> addIncident (IncidentRequest request){
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
+
     @GetMapping("/incident/{id}")
     public ResponseEntity findIncidentById(@PathVariable Long id){
         return new ResponseEntity(HttpStatus.OK);
     }
-    
 }

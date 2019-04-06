@@ -3,10 +3,12 @@ package io.codelex.securityapp.repository;
 import io.codelex.securityapp.api.*;
 import io.codelex.securityapp.repository.models.ClientRepository;
 import io.codelex.securityapp.repository.models.IncidentRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Component
 public class RepositoryClientService {
     private final ClientRepository clientRepository;
     private final IncidentRepository incidentRepository;
