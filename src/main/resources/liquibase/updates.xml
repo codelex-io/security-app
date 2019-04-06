@@ -57,7 +57,7 @@
             </column>
             <column
                     name="latitude"
-                    type="numeric"
+                    type="DECIMAL(9,6)"
             >
                 <constraints
                         primaryKey="false"
@@ -66,7 +66,8 @@
             </column>
             <column
                     name="longitude"
-                    type="numeric">
+                    type="DECIMAL(9,6)"
+            >
                 <constraints
                         nullable="false"
                 />
@@ -107,14 +108,16 @@
             </column>
             <column
                     name="latitude"
-                    type="numeric">
+                    type="DECIMAL(9,6)"
+            >
                 <constraints
                         nullable="false"
                 />
             </column>
             <column
                     name="longitude"
-                    type="numeric">
+                    type="DECIMAL(9,6)"
+            >
                 <constraints
                         nullable="false"
                 />

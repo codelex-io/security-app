@@ -1,6 +1,6 @@
-package io.codelex.securityapp.repository.models;
+package io.codelex.securityapp.repository;
 
-import io.codelex.securityapp.api.Unit;
+import io.codelex.securityapp.repository.models.Unit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

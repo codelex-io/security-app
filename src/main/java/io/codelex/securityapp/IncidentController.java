@@ -1,6 +1,6 @@
 package io.codelex.securityapp;
 
-import io.codelex.securityapp.api.Incident;
+import io.codelex.securityapp.repository.models.Incident;
 import io.codelex.securityapp.api.IncidentRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

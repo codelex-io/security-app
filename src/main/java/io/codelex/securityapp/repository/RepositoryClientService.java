@@ -1,8 +1,8 @@
 package io.codelex.securityapp.repository;
 
 import io.codelex.securityapp.api.*;
-import io.codelex.securityapp.repository.models.ClientRepository;
-import io.codelex.securityapp.repository.models.IncidentRepository;
+import io.codelex.securityapp.repository.models.Client;
+import io.codelex.securityapp.repository.models.Incident;
 import org.springframework.stereotype.Component;
 
 import java.util.NoSuchElementException;
@@ -21,7 +21,6 @@ public class RepositoryClientService {
 
     public Client addClient(AddClientRequest request) {
         Client client = new Client(
-                id.incrementAndGet(),
                 request.getFirstName(),
                 request.getLastName()
         );

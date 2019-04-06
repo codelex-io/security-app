@@ -1,4 +1,4 @@
-package io.codelex.securityapp.api;
+package io.codelex.securityapp.repository.models;
 
 import javax.persistence.*;
 
@@ -7,19 +7,15 @@ import javax.persistence.*;
 public class Client {
 
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clients_seq")
+    private Long id;
     private String firstName;
     private String lastName;
 
-    public Client(long id, String firstName,
+    public Client(String firstName,
                   String lastName) {
-        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public long getId() {
-        return id;
     }
 
     public String getFirstName() {
@@ -28,5 +24,9 @@ public class Client {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

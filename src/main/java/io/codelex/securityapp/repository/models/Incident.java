@@ -1,28 +1,30 @@
-package io.codelex.securityapp.api;
+package io.codelex.securityapp.repository.models;
 
 import javax.persistence.*;
-
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "units")
-public class Unit {
+@Table(name = "incidents")
+public class Incident {
 
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "incidents_seq")
+    private Long id;
 
+    @ManyToOne
+    private Client client;
     private BigDecimal latitude;
     private BigDecimal longitude;
-    private Boolean available;
 
-    public Unit(long id, BigDecimal latitude, BigDecimal longitude, Boolean available) {
+    public Incident(long id, Client client, BigDecimal latitude, BigDecimal longitude) {
         this.id = id;
+        this.client = client;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.available = available;
     }
 
-    public Unit() {
+    public Client getClient() {
+        return client;
     }
 
     public long getId() {
@@ -36,9 +38,4 @@ public class Unit {
     public BigDecimal getLongitude() {
         return longitude;
     }
-
-    public Boolean getAvailable() {
-        return available;
-    }
-    
 }

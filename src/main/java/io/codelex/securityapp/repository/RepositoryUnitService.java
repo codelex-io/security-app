@@ -1,14 +1,12 @@
 package io.codelex.securityapp.repository;
 
 import io.codelex.securityapp.api.AddUnitRequest;
-import io.codelex.securityapp.api.Unit;
-import io.codelex.securityapp.repository.models.UnitRepository;
+import io.codelex.securityapp.repository.models.Unit;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 
 @Component
 public class RepositoryUnitService {

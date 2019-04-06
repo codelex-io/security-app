@@ -1,7 +1,7 @@
 package io.codelex.securityapp.repository.models;
 
 
-import io.codelex.securityapp.api.Unit;
+import io.codelex.securityapp.repository.UnitRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
