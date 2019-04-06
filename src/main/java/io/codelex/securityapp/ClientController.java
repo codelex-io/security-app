@@ -2,7 +2,8 @@ package io.codelex.securityapp;
 
 import io.codelex.securityapp.api.*;
 import io.codelex.securityapp.repository.RepositoryClientService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.codelex.securityapp.repository.models.Client;
+import io.codelex.securityapp.repository.models.Incident;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("client-api")
 public class ClientController {
-    @Autowired
     private RepositoryClientService service;
 
     public ClientController(RepositoryClientService service) {

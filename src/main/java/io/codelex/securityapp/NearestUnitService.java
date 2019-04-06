@@ -1,6 +1,6 @@
 package io.codelex.securityapp;
 
-import io.codelex.securityapp.api.Unit;
+import io.codelex.securityapp.repository.models.Unit;
 
 import java.math.BigDecimal;
 
