@@ -9,3 +9,5 @@ spring:
   liquibase:
     change-log: classpath:/liquibase/updates.xml
     enabled: true
+security-app:
+  store-type: database

@@ -3,6 +3,8 @@ package io.codelex.securityapp.repository;
 import io.codelex.securityapp.api.AddUnitRequest;
 import io.codelex.securityapp.api.Unit;
 import io.codelex.securityapp.repository.models.UnitRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,8 +13,9 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Component
+@ConditionalOnProperty(prefix = "security-app", name = "store-type", havingValue = "database")
 public class RepositoryUnitService {
-
+   
     private final UnitRepository unitRepository;
     private final AtomicLong id = new AtomicLong();
 
@@ -33,10 +36,7 @@ public class RepositoryUnitService {
     }
 
     public List<Unit> findAvailable() {
-        return unitRepository.searchAvailable()
-                .stream()
-                .filter(it -> it.getAvailable().equals(true))
-                .collect(Collectors.toList());
+        return unitRepository.searchAvailable();
     }
 
     public void deleteById(Long id) {
