@@ -11,12 +11,10 @@ import java.util.concurrent.atomic.AtomicLong;
 @Component
 public class RepositoryClientService {
     private final ClientRepository clientRepository;
-    private final IncidentRepository incidentRepository;
-    private final AtomicLong id = new AtomicLong();
+    
 
-    public RepositoryClientService(ClientRepository clientRepository, IncidentRepository incidentRepository) {
+    public RepositoryClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
-        this.incidentRepository = incidentRepository;
     }
 
     public Client addClient(AddClientRequest request) {
@@ -27,21 +25,21 @@ public class RepositoryClientService {
         client = clientRepository.save(client);
         return client;
     }
-    
-    public Incident requestForHelp(Incident request) {
-        Incident incident = new Incident(
-                id.incrementAndGet(),
-                clientRepository.getOne(2L),
-                request.getLatitude(),
-                request.getLongitude()
-        );
-        incident = incidentRepository.save(incident);
-        return incident;
-    }
-    
-    public void cancelRequestForHelp(Incident request) {
-        incidentRepository.delete(request);
-    }
+
+//    public Incident requestForHelp(Incident request) {
+//        Incident incident = new Incident(
+//                new Client(request.getClient().getFirstName(),
+//                        request.getClient().getLastName()),
+//                request.getLatitude(),
+//                request.getLongitude()
+//        );
+//        incident = incidentRepository.save(incident);
+//        return incident;
+//    }
+
+//    public void cancelRequestForHelp(Incident request) {
+//        incidentRepository.delete(request);
+//    }
 
     public void deleteById(Long id) {
         clientRepository.deleteById(id);

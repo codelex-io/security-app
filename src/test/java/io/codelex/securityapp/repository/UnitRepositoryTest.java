@@ -1,7 +1,6 @@
-package io.codelex.securityapp.repository.models;
+package io.codelex.securityapp.repository;
 
-
-import io.codelex.securityapp.repository.UnitRepository;
+import io.codelex.securityapp.repository.models.Unit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -45,4 +44,5 @@ public class UnitRepositoryTest {
         //then
         Assertions.assertEquals(0, unitRepository.searchAvailable().size());
     }
+
 }

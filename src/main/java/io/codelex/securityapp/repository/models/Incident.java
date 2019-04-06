@@ -16,8 +16,7 @@ public class Incident {
     private BigDecimal latitude;
     private BigDecimal longitude;
 
-    public Incident(long id, Client client, BigDecimal latitude, BigDecimal longitude) {
-        this.id = id;
+    public Incident(Client client, BigDecimal latitude, BigDecimal longitude) {
         this.client = client;
         this.latitude = latitude;
         this.longitude = longitude;
