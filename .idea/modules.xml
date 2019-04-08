@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/codelex-security-app.security-app.iml" filepath="$PROJECT_DIR$/.idea/modules/codelex-security-app.security-app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/codelex-security-app.security-app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/codelex-security-app.security-app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.codelex.security-app.iml" filepath="$PROJECT_DIR$/.idea/modules/io.codelex.security-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.codelex.security-app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/io.codelex.security-app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.codelex.security-app.test.iml" filepath="$PROJECT_DIR$/.idea/modules/io.codelex.security-app.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/security-app.iml" filepath="$PROJECT_DIR$/.idea/modules/security-app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/security-app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/security-app.main.iml" />
     </modules>
   </component>
 </project>
