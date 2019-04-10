@@ -16,8 +16,7 @@ public class Unit {
     private BigDecimal longitude;
     private Boolean available;
 
-    public Unit(long id, BigDecimal latitude, BigDecimal longitude, Boolean available) {
-        this.id = id;
+    public Unit(BigDecimal latitude, BigDecimal longitude, Boolean available) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.available = available;
@@ -25,11 +24,7 @@ public class Unit {
 
     public Unit() {
     }
-
-    public long getId() {
-        return id;
-    }
-
+    
     public BigDecimal getLatitude() {
         return latitude;
     }
@@ -41,5 +36,6 @@ public class Unit {
     public Boolean getAvailable() {
         return available;
     }
+    
     
 }

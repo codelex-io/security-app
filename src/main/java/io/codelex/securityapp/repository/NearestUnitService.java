@@ -1,4 +1,4 @@
-package io.codelex.securityapp;
+package io.codelex.securityapp.repository;
 
 import io.codelex.securityapp.repository.models.Unit;
 
@@ -6,5 +6,5 @@ import java.math.BigDecimal;
 
 public interface NearestUnitService {
     
-    public Unit findNearestUnit(BigDecimal latitude, BigDecimal longitude);
+    public Unit searchNearestUnit(BigDecimal latitude, BigDecimal longitude);
 }
