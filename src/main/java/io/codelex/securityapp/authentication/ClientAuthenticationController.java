@@ -4,8 +4,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
+import static io.codelex.securityapp.authentication.UserRoles.ROLE_USER;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/client-api")
 class ClientAuthenticationController {
     private final AuthService authService;
 
@@ -16,13 +18,13 @@ class ClientAuthenticationController {
     @PostMapping("/sign-in")
     public void signIn(@RequestParam("email") String email ,
                        @RequestParam("password") String password) {
-        authService.authorise(email, password, "ROLE_CLIENT");
+        authService.authorise(email, password, ROLE_USER);
     }
 
     @PostMapping("/register")
     public void register(@RequestParam("email") String email ,
                          @RequestParam("password") String password) {
-        authService.authorise(email, password, "ROLE_CLIENT");
+        authService.authorise(email, password, ROLE_USER);
     }
 
     @PostMapping("/sign-out")
