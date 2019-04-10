@@ -27,13 +27,4 @@ public class IncidentController {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteById(@PathVariable Long id) {
-        service.deleteById(id);
-    }
-
-    @DeleteMapping("/delete")
-    public void deleteById() {
-        service.deleteAll();
-    }
 }

@@ -11,10 +11,14 @@ import java.util.NoSuchElementException;
 @Component
 public class RepositoryIncidentService {
 
+    private final SimpleNearestUnitService simpleNearestUnitService;
     private final IncidentRepository repository;
     private final NotificationService notificationService;
 
-    public RepositoryIncidentService(IncidentRepository repository, NotificationService notificationService) {
+    public RepositoryIncidentService(SimpleNearestUnitService simpleNearestUnitService,
+                                     IncidentRepository repository,
+                                     NotificationService notificationService) {
+        this.simpleNearestUnitService = simpleNearestUnitService;
         this.repository = repository;
         this.notificationService = notificationService;
     }
@@ -27,6 +31,10 @@ public class RepositoryIncidentService {
         );
         incident = repository.save(incident);
         notificationService.sendNotification("Client requested for incident received");
+
+        simpleNearestUnitService.searchNearestUnit(request.getLatitude(), request.getLongitude());
+        notificationService.sendNotification("Send acceptance notification");
+
         return incident;
     }
 
@@ -34,12 +42,5 @@ public class RepositoryIncidentService {
         return repository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
     }
-    
-    public void deleteById(Long id) {
-        repository.deleteById(id);
-    }
-    
-    public void deleteAll(){
-        repository.deleteAll();
-    }
+
 }

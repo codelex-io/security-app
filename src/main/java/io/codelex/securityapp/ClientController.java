@@ -3,7 +3,6 @@ package io.codelex.securityapp;
 import io.codelex.securityapp.api.*;
 import io.codelex.securityapp.repository.RepositoryClientService;
 import io.codelex.securityapp.repository.models.Client;
-import io.codelex.securityapp.repository.models.Incident;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +26,4 @@ public class ClientController {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteById(@PathVariable Long id) {
-        service.deleteById(id);
-    }
-    
-    @DeleteMapping("delete")
-    public void deleteAll() {
-        service.deleteAll();
-    }
 }

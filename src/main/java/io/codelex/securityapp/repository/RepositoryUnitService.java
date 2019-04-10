@@ -28,13 +28,6 @@ public class RepositoryUnitService {
         return unitRepository.searchAvailable();
     }
 
-    public void deleteById(Long id) {
-        unitRepository.deleteById(id);
-    }
-
-    public void deleteAll() {
-        unitRepository.deleteAll();
-    }
 
     public Unit findById(Long id) {
         return unitRepository.findById(id)
