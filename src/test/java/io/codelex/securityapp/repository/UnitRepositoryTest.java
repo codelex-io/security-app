@@ -29,6 +29,8 @@ public class UnitRepositoryTest {
         unitRepository.save(unit);
         //then
         Assertions.assertEquals(1, unitRepository.searchAvailable().size());
+        Assertions.assertNotNull(unitRepository.findAll());
+
     }
 
     @Test
