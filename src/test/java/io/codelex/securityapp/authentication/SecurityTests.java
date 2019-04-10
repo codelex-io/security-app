@@ -27,10 +27,10 @@ public class SecurityTests {
 
     static final String email = "dev@codelex.io";
     static final String password = "Password123";
-
+    
     @Test
     public void customer_account_should_be_secured_by_default() {
-        var result = restTemplate.getForEntity("/api/account", String.class);
+        var result = restTemplate.getForEntity("/clients-api/account", String.class);
         assertEquals(FORBIDDEN, result.getStatusCode());
     }
 
