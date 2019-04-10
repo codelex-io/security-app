@@ -9,3 +9,7 @@ spring:
   liquibase:
     change-log: classpath:/liquibase/updates.xml
     enabled: true
+
+maps:
+  api-url: https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=
+  api-key: AIzaSyDcsLDxrAteVZEOc4h8zBJwVzs13Cb79OU

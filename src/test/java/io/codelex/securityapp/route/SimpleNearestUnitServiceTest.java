@@ -15,10 +15,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 @RunWith(SpringRunner.class)
@@ -36,8 +34,12 @@ class SimpleNearestUnitServiceTest {
 
     @BeforeEach
     void setUp() {
+        GoogleMapsProps props = new GoogleMapsProps();
+        props.setApiUrl("https://maps.googleapis.com/maps/api/distancematrix/json?units=metric");
+        props.setApiKey("AIzaSyDcsLDxrAteVZEOc4h8zBJwVzs13Cb79OU");
+
         repositoryUnitService = new RepositoryUnitService(unitRepository);
-        routeGateway = new RouteGateway();
+        routeGateway = new RouteGateway(props);
         nearestUnit = new SimpleNearestUnitService(repositoryUnitService, routeGateway);
 
     }
