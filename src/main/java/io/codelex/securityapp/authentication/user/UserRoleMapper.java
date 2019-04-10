@@ -16,11 +16,11 @@ class UserRoleMapper implements GrantedAuthoritiesMapper {
 
         for (GrantedAuthority a: authorities) {
             if ("MY ADMIN GROUP".equals(a.getAuthority())) {
-                roles.add(ROLE_ADMIN);
+                roles.add(ADMIN);
             } else if ("MY USER GROUP".equals(a.getAuthority())) {
-                roles.add(ROLE_USER);
+                roles.add(USER);
             } else if ("MY USER GROUP".equals(a.getAuthority())) {
-                roles.add(ROLE_UNIT);
+                roles.add(UNIT);
             }
         }
         return roles;

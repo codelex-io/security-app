@@ -36,58 +36,58 @@ public class SecurityTests {
 
     @Test
     public void customer_should_be_authorised_on_registration() {
-        var result = register();
+        var result = registerClient();
         assertEquals(OK, result.getStatusCode());
 
         var sessionId = sessionId(result);
-        assertEquals(OK, accessAccount(sessionId).getStatusCode());
+        assertEquals(OK, accessClientAccount(sessionId).getStatusCode());
     }
 
     @Test
     public void customer_should_be_authorised_on_sign_in() {
-        var result = register();
+        var result = registerClient();
         assertEquals(OK, result.getStatusCode());
 
-        result = signIn();
+        result = signInClient();
         assertEquals(OK, result.getStatusCode());
 
         var sessionId = sessionId(result);
-        assertEquals(OK, accessAccount(sessionId).getStatusCode());
+        assertEquals(OK, accessClientAccount(sessionId).getStatusCode());
     }
 
     @Test
     public void customer_should_be_able_to_sign_out() {
-        var result = register();
+        var result = registerClient();
         assertEquals(OK, result.getStatusCode());
 
         var sessionId = sessionId(result);
 
-        result = signOut(sessionId);
+        result = signOutClient(sessionId);
         assertEquals(OK, result.getStatusCode());
 
-        assertEquals(FORBIDDEN, accessAccount(sessionId).getStatusCode());
+        assertEquals(FORBIDDEN, accessClientAccount(sessionId).getStatusCode());
     }
 
     @Test
     public void customer_should_be_able_to_get_account_details() {
-        var result = register();
+        var result = registerClient();
         assertEquals(OK, result.getStatusCode());
 
         var sessionId = sessionId(result);
-        assertEquals(email, accessAccount(sessionId).getBody());
+        assertEquals(email, accessClientAccount(sessionId).getBody());
     }
 
     @Test
     public void customer_should_not_be_able_to_access_admin_endpoints() {
-        var result = register();
+        var result = registerClient();
         assertEquals(OK, result.getStatusCode());
 
         var sessionId = sessionId(result);
         assertEquals(FORBIDDEN, accessAdminAccount(sessionId).getStatusCode());
     }
 
-    private ResponseEntity<Void> register() {
-        var uri = fromPath("/api/register")
+    private ResponseEntity<Void> registerClient() {
+        var uri = fromPath("/clients-api/register")
                 .queryParam("email", email)
                 .queryParam("password", password)
                 .build()
@@ -96,8 +96,8 @@ public class SecurityTests {
         return restTemplate.postForEntity(uri, EMPTY, Void.class);
     }
 
-    private ResponseEntity<Void> signIn() {
-        var uri = fromPath("/api/sign-in")
+    private ResponseEntity<Void> signInClient() {
+        var uri = fromPath("/clients-api/sign-in")
                 .queryParam("email", email)
                 .queryParam("password", password)
                 .build()
@@ -106,12 +106,12 @@ public class SecurityTests {
         return restTemplate.postForEntity(uri, EMPTY, Void.class);
     }
 
-    private ResponseEntity<Void> signOut(String sessionId) {
-        return restTemplate.exchange("/api/sign-out", POST, request(sessionId), Void.class);
+    private ResponseEntity<Void> signOutClient(String sessionId) {
+        return restTemplate.exchange("/clients-api/sign-out", POST, request(sessionId), Void.class);
     }
 
-    private ResponseEntity<String> accessAccount(String sessionId) {
-        return restTemplate.exchange("/api/account", GET, request(sessionId), String.class);
+    private ResponseEntity<String> accessClientAccount(String sessionId) {
+        return restTemplate.exchange("/clients-api/account", GET, request(sessionId), String.class);
     }
 
     private ResponseEntity<String> accessAdminAccount(String sessionId) {

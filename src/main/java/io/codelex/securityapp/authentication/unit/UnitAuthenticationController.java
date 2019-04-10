@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-import static io.codelex.securityapp.authentication.user.UserRoles.ROLE_UNIT;
+import static io.codelex.securityapp.authentication.user.UserRoles.UNIT;
 
 @RestController
-@RequestMapping("/unit-api")
+@RequestMapping("/units-api")
 class UnitAuthenticationController {
     @Autowired
     private final AuthService authService;
@@ -21,13 +21,13 @@ class UnitAuthenticationController {
     @PostMapping("/sign-in")
     public void signIn(@RequestParam("email") String email ,
                        @RequestParam("password") String password) {
-        authService.authorise(email, ROLE_UNIT);
+        authService.authorise(email, UNIT);
     }
 
     @PostMapping("/register")
     public void register(@RequestParam("email") String email ,
                          @RequestParam("password") String password) {
-        authService.authorise(email, ROLE_UNIT);
+        authService.authorise(email, UNIT);
     }
 
     @PostMapping("/sign-out")

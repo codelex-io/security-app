@@ -15,6 +15,6 @@ class AdminSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/sign-in").permitAll()
-                .anyRequest().hasRole(String.valueOf(UserRoles.ROLE_ADMIN));
+                .anyRequest().hasRole(String.valueOf(UserRoles.ADMIN));
     }
 }

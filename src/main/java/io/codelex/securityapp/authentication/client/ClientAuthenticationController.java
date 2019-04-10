@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-import static io.codelex.securityapp.authentication.user.UserRoles.ROLE_USER;
+import static io.codelex.securityapp.authentication.user.UserRoles.USER;
 
 @RestController
-@RequestMapping("/client-api")
+@RequestMapping("/clients-api")
 class ClientAuthenticationController {
     private final AuthService authService;
 
@@ -19,13 +19,13 @@ class ClientAuthenticationController {
     @PostMapping("/sign-in")
     public void signIn(@RequestParam("email") String email ,
                        @RequestParam("password") String password) {
-        authService.authorise(email, ROLE_USER);
+        authService.authorise(email, USER);
     }
 
     @PostMapping("/register")
     public void register(@RequestParam("email") String email ,
                          @RequestParam("password") String password) {
-        authService.authorise(email, ROLE_USER);
+        authService.authorise(email, USER);
     }
 
     @PostMapping("/sign-out")
