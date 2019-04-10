@@ -2,69 +2,32 @@ package io.codelex.securityapp.repository;
 
 import io.codelex.securityapp.api.AddClientRequest;
 import io.codelex.securityapp.repository.models.Client;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.Mockito;
+import org.mockito.stubbing.Answer;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+import static org.mockito.ArgumentMatchers.any;
+
+
 class RepositoryClientServiceTest {
-    
-    @Autowired
-    private IncidentRepository incidentRepo;
-    
-    @Autowired
-    ClientRepository clientRepo;
-    
-    RepositoryClientService service;
 
-    @BeforeEach
-    void setUp() {
-        service = new RepositoryClientService(clientRepo, incidentRepo);
-    }
-    
+    ClientRepository repository = Mockito.mock(ClientRepository.class);
+
+    RepositoryClientService service = new RepositoryClientService(repository);
+
     @Test
-    void should_add_client() {
-        //when
-        AddClientRequest request = createRequest();
-        
-        //when
-        Client client = service.addClient(request);
-        
+    void should_save_client() {
+        //given
+        AddClientRequest request = new AddClientRequest(
+                "John",
+                "Doe"
+        );
+        Mockito.when(repository.save(any()))
+                .thenAnswer((Answer) invocation -> invocation.getArguments()[0]);
         //then
-        Assertions.assertEquals(request, client);
-        
-    }
-
-    @Test
-    void requestForHelp() {
-    }
-
-    @Test
-    void cancelRequestForHelp() {
-    }
-
-    @Test
-    void deleteById() {
-    }
-
-    @Test
-    void deleteAll() {
-    }
-
-    @Test
-    void findById() {
-    }
-
-    @NotNull
-    private AddClientRequest createRequest() {
-        return new AddClientRequest("John", "Doe");
+        Client client = service.addClient(request);
+        Assertions.assertEquals(request.getFirstName(), client.getFirstName());
+        Assertions.assertEquals(request.getLastName(), client.getLastName());
     }
 }

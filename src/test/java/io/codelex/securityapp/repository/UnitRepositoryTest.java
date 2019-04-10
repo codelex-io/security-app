@@ -1,7 +1,6 @@
-package io.codelex.securityapp.repository.models;
+package io.codelex.securityapp.repository;
 
-
-import io.codelex.securityapp.repository.UnitRepository;
+import io.codelex.securityapp.repository.models.Unit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +23,6 @@ public class UnitRepositoryTest {
     void should_find_available_unit() {
         //given
         Unit unit = (new Unit(
-                1L,
                 new BigDecimal(1),
                 new BigDecimal(2),
                 true));
@@ -37,7 +35,6 @@ public class UnitRepositoryTest {
     void should_not_find_unit_if_not_available() {
         //given
         Unit unit = (new Unit(
-                1L,
                 new BigDecimal(1),
                 new BigDecimal(2),
                 false));
@@ -45,4 +42,5 @@ public class UnitRepositoryTest {
         //then
         Assertions.assertEquals(0, unitRepository.searchAvailable().size());
     }
+
 }

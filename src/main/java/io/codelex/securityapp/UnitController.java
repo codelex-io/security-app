@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("unit-api")
 public class UnitController {
-    
+
     private final RepositoryUnitService service;
 
     public UnitController(RepositoryUnitService service) {
@@ -18,22 +18,13 @@ public class UnitController {
     }
 
     @PostMapping("/units")
-    public ResponseEntity<Unit> addUnit(@RequestBody AddUnitRequest request){
-        return new ResponseEntity<>(service.addUnit(request),HttpStatus.OK);
+    public ResponseEntity<Unit> addUnit(@RequestBody AddUnitRequest request) {
+        return new ResponseEntity<>(service.addUnit(request), HttpStatus.OK);
     }
-    
+
     @GetMapping("/units/{id}")
-    public ResponseEntity<Unit> findById(@PathVariable Long id){
+    public ResponseEntity<Unit> findById(@PathVariable Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
-    
-    @DeleteMapping("/delete/{id}")
-    public void deleteById(@PathVariable Long id){
-        service.deleteById(id);
-    }
-    
-    @DeleteMapping("delete")
-    public void deleteAll(){
-        service.deleteAll();
-    }
+
 }

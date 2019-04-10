@@ -11,10 +11,5 @@
       <entry name="!?*.kt" />
       <entry name="!?*.clj" />
     </wildcardResourcePatterns>
-    <bytecodeTargetLevel>
-      <module name="codelex-security-app.security-app.main" target="11" />
-      <module name="io.codelex.security-app.main" target="11" />
-      <module name="io.codelex.security-app.test" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>
