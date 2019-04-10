@@ -1,11 +1,14 @@
 package io.codelex.securityapp.route;
 
+import io.codelex.securityapp.repository.RepositoryUnitService;
 import io.codelex.securityapp.repository.SimpleNearestUnitService;
+import io.codelex.securityapp.repository.UnitRepository;
 import io.codelex.securityapp.repository.models.Client;
 import io.codelex.securityapp.repository.models.Incident;
 import io.codelex.securityapp.repository.models.Unit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 
@@ -13,8 +16,10 @@ class SimpleNearestUnitServiceTest {
     
   
     private RouteGateway routeGateway = new RouteGateway();
-
-    private SimpleNearestUnitService nearestUnit = new SimpleNearestUnitService(routeGateway);
+    @Autowired
+    private UnitRepository unitRepository;
+    private RepositoryUnitService repositoryUnitService = new RepositoryUnitService(unitRepository);
+    private SimpleNearestUnitService nearestUnit = new SimpleNearestUnitService(repositoryUnitService,routeGateway);
 
     @Test
     void should_return_unit() {

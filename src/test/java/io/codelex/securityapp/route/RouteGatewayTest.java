@@ -27,8 +27,6 @@ class RouteGatewayTest {
                 new BigDecimal(24.113705)
         );
         //then
-        Route distanceTo = routeGateway.calculateRoute(unit, incident);
-        Assertions.assertEquals(124891, distanceTo.getDistance());
     }
 
 }

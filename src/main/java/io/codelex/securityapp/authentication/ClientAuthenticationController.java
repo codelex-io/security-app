@@ -6,21 +6,23 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("/api")
-class CustomerController {
+class ClientAuthenticationController {
     private final AuthService authService;
 
-    CustomerController(AuthService authService) {
+    ClientAuthenticationController(AuthService authService) {
         this.authService = authService;
     }
 
     @PostMapping("/sign-in")
-    public void signIn(@RequestParam("email") String email) {
-        authService.authorise(email, "ROLE_CUSTOMER");
+    public void signIn(@RequestParam("email") String email ,
+                       @RequestParam("password") String password) {
+        authService.authorise(email, password, "ROLE_CLIENT");
     }
 
     @PostMapping("/register")
-    public void register(@RequestParam("email") String email) {
-        authService.authorise(email, "ROLE_CUSTOMER");
+    public void register(@RequestParam("email") String email ,
+                         @RequestParam("password") String password) {
+        authService.authorise(email, password, "ROLE_CLIENT");
     }
 
     @PostMapping("/sign-out")
