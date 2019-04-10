@@ -1,0 +1,26 @@
+{
+  "destination_addresses": [
+    "Unnamed Road, Īslīces pagasts, LV-3914, Latvia"
+  ],
+  "origin_addresses": [
+    "Uzvaras bulvāris 2, Zemgales priekšpilsēta, Rīga, LV-1048, Latvia"
+  ],
+  "rows": [
+    {
+      "elements": [
+        {
+          "distance": {
+            "text": "86.9 km",
+            "value": 86926
+          },
+          "duration": {
+            "text": "1 hour 18 mins",
+            "value": 4690
+          },
+          "status": "OK"
+        }
+      ]
+    }
+  ],
+  "status": "OK"
+}

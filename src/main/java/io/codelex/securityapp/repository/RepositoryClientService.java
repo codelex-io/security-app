@@ -11,7 +11,6 @@ import java.util.concurrent.atomic.AtomicLong;
 @Component
 public class RepositoryClientService {
     private final ClientRepository clientRepository;
-    
 
     public RepositoryClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
@@ -25,22 +24,7 @@ public class RepositoryClientService {
         client = clientRepository.save(client);
         return client;
     }
-
-//    public Incident requestForHelp(Incident request) {
-//        Incident incident = new Incident(
-//                new Client(request.getClient().getFirstName(),
-//                        request.getClient().getLastName()),
-//                request.getLatitude(),
-//                request.getLongitude()
-//        );
-//        incident = incidentRepository.save(incident);
-//        return incident;
-//    }
-
-//    public void cancelRequestForHelp(Incident request) {
-//        incidentRepository.delete(request);
-//    }
-
+    
     public void deleteById(Long id) {
         clientRepository.deleteById(id);
     }
@@ -53,5 +37,4 @@ public class RepositoryClientService {
         return clientRepository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
     }
-
 }

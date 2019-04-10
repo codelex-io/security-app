@@ -11,7 +11,7 @@ public class Incident {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "incidents_seq")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Client client;
     private BigDecimal latitude;
     private BigDecimal longitude;
@@ -24,10 +24,6 @@ public class Incident {
 
     public Client getClient() {
         return client;
-    }
-
-    public long getId() {
-        return id;
     }
 
     public BigDecimal getLatitude() {

@@ -1,7 +1,6 @@
 package io.codelex.securityapp;
 
 import io.codelex.securityapp.repository.RepositoryIncidentService;
-import io.codelex.securityapp.repository.RepositoryUnitService;
 import io.codelex.securityapp.repository.models.Incident;
 import io.codelex.securityapp.api.AddIncidentRequest;
 import org.springframework.http.HttpStatus;
@@ -22,5 +21,19 @@ public class IncidentController {
     public ResponseEntity<Incident> addIncident(@RequestBody AddIncidentRequest request) {
         return new ResponseEntity<>(service.addIncident(request), HttpStatus.OK);
     }
-    
+
+    @GetMapping("/incidents/{id}")
+    public ResponseEntity<Incident> findById(@PathVariable Long id) {
+        return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteById(@PathVariable Long id) {
+        service.deleteById(id);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteById() {
+        service.deleteAll();
+    }
 }

@@ -23,7 +23,6 @@ public class UnitRepositoryTest {
     void should_find_available_unit() {
         //given
         Unit unit = (new Unit(
-                1L,
                 new BigDecimal(1),
                 new BigDecimal(2),
                 true));
@@ -36,7 +35,6 @@ public class UnitRepositoryTest {
     void should_not_find_unit_if_not_available() {
         //given
         Unit unit = (new Unit(
-                1L,
                 new BigDecimal(1),
                 new BigDecimal(2),
                 false));

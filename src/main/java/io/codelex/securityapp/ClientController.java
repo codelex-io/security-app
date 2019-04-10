@@ -21,11 +21,6 @@ public class ClientController {
     public ResponseEntity<Client> addClient(@RequestBody AddClientRequest request) {
         return new ResponseEntity<>(service.addClient(request), HttpStatus.OK);
     }
-
-//    @PostMapping("/incidents")
-//    public ResponseEntity<Incident> requestForHelp(@RequestBody Incident request) {
-//        return new ResponseEntity<>(service.requestForHelp(request), HttpStatus.OK);
-//    }
     
     @GetMapping("/clients/{id}")
     public ResponseEntity<Client> findById(@PathVariable Long id) {
@@ -36,11 +31,6 @@ public class ClientController {
     public void deleteById(@PathVariable Long id) {
         service.deleteById(id);
     }
-    
-//    @DeleteMapping("/delete/{request}")
-//    public void cancelRequest(@PathVariable Incident request) {
-//        service.cancelRequestForHelp(request);
-//    }
     
     @DeleteMapping("delete")
     public void deleteAll() {

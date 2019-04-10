@@ -3,65 +3,57 @@ package io.codelex.securityapp.repository;
 import io.codelex.securityapp.api.AddUnitRequest;
 import io.codelex.securityapp.repository.models.Unit;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.Mockito;
+import org.mockito.stubbing.Answer;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+import static org.mockito.ArgumentMatchers.any;
+
 class RepositoryUnitServiceTest {
 
-    @Autowired
-    UnitRepository unitRepository;
-    @Autowired
-    IncidentRepository incidentRepository;
-
-    RepositoryUnitService repositoryUnitService;
-
-    @BeforeEach
-    void setUp() {
-        repositoryUnitService = new RepositoryUnitService(unitRepository);
-    }
-
+    private UnitRepository repository = Mockito.mock(UnitRepository.class);
+    private RepositoryUnitService service = new RepositoryUnitService(repository);
 
     @Test
-    void should_add_unit() {
+    void should_save_unit() {
+        //given
         AddUnitRequest request = new AddUnitRequest(
-                new BigDecimal(100), new BigDecimal(2), true);
-
-        Unit unit1 = repositoryUnitService.addUnit(request);
-
-        Assertions.assertEquals(request.getLatitude(), unit1.getLatitude());
-
-
+                new BigDecimal(22.2222),
+                new BigDecimal(11.1111),
+                true
+        );
+        Mockito.when(repository.save(any()))
+                .thenAnswer((Answer) invocation -> invocation.getArguments()[0]);
+        //when
+        Unit unit = service.addUnit(request);
+        Assertions.assertEquals(request.getLongitude(), unit.getLongitude());
+        Assertions.assertEquals(request.getLatitude(), unit.getLatitude());
+        Assertions.assertEquals(request.getAvailable(), unit.getAvailable());
     }
 
     @Test
     void should_find_available_units() {
-
-        repositoryUnitService.addUnit(new AddUnitRequest(
-                new BigDecimal(1), new BigDecimal(2), true)
+        //given
+        Unit unit = new Unit(
+                new BigDecimal(22.2222),
+                new BigDecimal(11.1111),
+                true
         );
+        List<Unit> availableUnits = new ArrayList<>();
+        availableUnits.add(unit);
+        //when
+        Answer<List<Unit>> answer = invocation -> availableUnits;
 
-        repositoryUnitService.addUnit(new AddUnitRequest(
-                new BigDecimal(1), new BigDecimal(2), false)
-        );
+        Mockito.when(repository.searchAvailable())
+                .thenAnswer(answer);
 
-        repositoryUnitService.addUnit(new AddUnitRequest(
-                new BigDecimal(1), new BigDecimal(2), false)
-        );
-
-        List<Unit> availableUnits = repositoryUnitService.findAvailable();
-
-        Assertions.assertEquals(availableUnits.size(), 1);
-
+        List<Unit> units = service.findAvailable();
+        //then
+        Assertions.assertEquals(unit.getAvailable(), units.get(0).getAvailable());
     }
+
 }
