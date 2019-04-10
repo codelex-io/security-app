@@ -1,4 +1,4 @@
-package io.codelex.securityapp.authentication;
+package io.codelex.securityapp.authentication.user;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Set;
 
-import static io.codelex.securityapp.authentication.UserRoles.*;
+import static io.codelex.securityapp.authentication.user.UserRoles.*;
 
 class UserRoleMapper implements GrantedAuthoritiesMapper {
 

@@ -1,5 +1,6 @@
-package io.codelex.securityapp.authentication;
+package io.codelex.securityapp.authentication.admin;
 
+import io.codelex.securityapp.authentication.user.UserRoles;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,6 @@ class AdminSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/sign-in").permitAll()
-                .anyRequest().hasRole("ADMIN");
+                .anyRequest().hasRole(String.valueOf(UserRoles.ROLE_ADMIN));
     }
 }

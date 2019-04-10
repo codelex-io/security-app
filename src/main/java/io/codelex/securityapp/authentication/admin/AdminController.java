@@ -1,4 +1,4 @@
-package io.codelex.securityapp.authentication;
+package io.codelex.securityapp.authentication.admin;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

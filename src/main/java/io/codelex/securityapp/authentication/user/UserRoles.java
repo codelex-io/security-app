@@ -1,4 +1,4 @@
-package io.codelex.securityapp.authentication;
+package io.codelex.securityapp.authentication.user;
 
 import org.springframework.security.core.GrantedAuthority;
 
