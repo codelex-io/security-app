@@ -5,8 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
 public class AddIncidentRequest {
-
+    
     private BigDecimal latitude;
+    
     private BigDecimal longitude;
 
     @JsonCreator

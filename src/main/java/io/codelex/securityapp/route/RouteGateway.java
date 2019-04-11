@@ -47,6 +47,6 @@ public class RouteGateway {
         } catch (Exception e) {
             LOG.warn("External service error caught");
         }
-        return 0L;
+        throw new IllegalStateException();
     }
 }
