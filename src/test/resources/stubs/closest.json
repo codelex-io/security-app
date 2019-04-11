@@ -1,0 +1,26 @@
+{
+  "destination_addresses": [
+    "Krišjāņa Valdemāra iela 1A, Centra rajons, Rīga, LV-1010, Latvia"
+  ],
+  "origin_addresses": [
+    "Brīvības bulvāris 19, Centra rajons, Rīga, LV-1050, Latvia"
+  ],
+  "rows": [
+    {
+      "elements": [
+        {
+          "distance": {
+            "text": "1.3 km",
+            "value": 1262
+          },
+          "duration": {
+            "text": "4 mins",
+            "value": 261
+          },
+          "status": "OK"
+        }
+      ]
+    }
+  ],
+  "status": "OK"
+}

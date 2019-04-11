@@ -1,0 +1,26 @@
+{
+  "destination_addresses": [
+    "Katoļu iela 5, Latgales priekšpilsēta, Rīga, LV-1003, Latvia"
+  ],
+  "origin_addresses": [
+    "Brīvības bulvāris 19, Centra rajons, Rīga, LV-1050, Latvia"
+  ],
+  "rows": [
+    {
+      "elements": [
+        {
+          "distance": {
+            "text": "2.8 km",
+            "value": 2771
+          },
+          "duration": {
+            "text": "8 mins",
+            "value": 477
+          },
+          "status": "OK"
+        }
+      ]
+    }
+  ],
+  "status": "OK"
+}
