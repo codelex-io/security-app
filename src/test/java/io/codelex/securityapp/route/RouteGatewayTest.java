@@ -80,10 +80,7 @@ class RouteGatewayTest {
         wireMock.stubFor(get(urlPathEqualTo("/maps/api/distancematrix/json"))
                 .willReturn(aResponse()
                 .withStatus(500)));
-        //when
-        Long distance = routeGateway.calculateRoute(unit, incident);
         //then
-        Assertions.assertEquals(0, (long) distance);
-        
+        Assertions.assertThrows(IllegalStateException.class, () -> routeGateway.calculateRoute(unit,incident));
     }
 }

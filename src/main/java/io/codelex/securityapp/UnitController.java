@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("unit-api")
+@RequestMapping("/unit-api")
 public class UnitController {
 
     private final RepositoryUnitService service;
