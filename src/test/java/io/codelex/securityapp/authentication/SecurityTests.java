@@ -29,13 +29,13 @@ public class SecurityTests {
     static final String password = "Password123";
     
     @Test
-    public void customer_account_should_be_secured_by_default() {
+    public void client_account_should_be_secured_by_default() {
         var result = restTemplate.getForEntity("/clients-api/account", String.class);
         assertEquals(FORBIDDEN, result.getStatusCode());
     }
 
     @Test
-    public void customer_should_be_authorised_on_registration() {
+    public void client_should_be_authorised_on_registration() {
         var result = registerClient();
         assertEquals(OK, result.getStatusCode());
 
@@ -44,7 +44,7 @@ public class SecurityTests {
     }
 
     @Test
-    public void customer_should_be_authorised_on_sign_in() {
+    public void client_should_be_authorised_on_sign_in() {
         var result = registerClient();
         assertEquals(OK, result.getStatusCode());
 
@@ -56,7 +56,7 @@ public class SecurityTests {
     }
 
     @Test
-    public void customer_should_be_able_to_sign_out() {
+    public void client_should_be_able_to_sign_out() {
         var result = registerClient();
         assertEquals(OK, result.getStatusCode());
 
@@ -69,7 +69,7 @@ public class SecurityTests {
     }
 
     @Test
-    public void customer_should_be_able_to_get_account_details() {
+    public void client_should_be_able_to_get_account_details() {
         var result = registerClient();
         assertEquals(OK, result.getStatusCode());
 
@@ -78,8 +78,66 @@ public class SecurityTests {
     }
 
     @Test
-    public void customer_should_not_be_able_to_access_admin_endpoints() {
+    public void client_should_not_be_able_to_access_admin_endpoints() {
         var result = registerClient();
+        assertEquals(OK, result.getStatusCode());
+
+        var sessionId = sessionId(result);
+        assertEquals(FORBIDDEN, accessAdminAccount(sessionId).getStatusCode());
+    }
+
+    @Test
+    public void unit_account_should_be_secured_by_default() {
+        var result = restTemplate.getForEntity("/units-api/account", String.class);
+        assertEquals(FORBIDDEN, result.getStatusCode());
+    }
+
+    @Test
+    public void unit_should_be_authorised_on_registration() {
+        var result = registerUnit();
+        assertEquals(OK, result.getStatusCode());
+
+        var sessionId = sessionId(result);
+        assertEquals(OK, accessUnitAccount(sessionId).getStatusCode());
+    }
+
+    @Test
+    public void unit_should_be_authorised_on_sign_in() {
+        var result = registerUnit();
+        assertEquals(OK, result.getStatusCode());
+
+        result = signInUnit();
+        assertEquals(OK, result.getStatusCode());
+
+        var sessionId = sessionId(result);
+        assertEquals(OK, accessUnitAccount(sessionId).getStatusCode());
+    }
+
+    @Test
+    public void unit_should_be_able_to_sign_out() {
+        var result = registerUnit();
+        assertEquals(OK, result.getStatusCode());
+
+        var sessionId = sessionId(result);
+
+        result = signOutUnit(sessionId);
+        assertEquals(OK, result.getStatusCode());
+
+        assertEquals(FORBIDDEN, accessUnitAccount(sessionId).getStatusCode());
+    }
+
+    @Test
+    public void unit_should_be_able_to_get_account_details() {
+        var result = registerUnit();
+        assertEquals(OK, result.getStatusCode());
+
+        var sessionId = sessionId(result);
+        assertEquals(email, accessUnitAccount(sessionId).getBody());
+    }
+
+    @Test
+    public void unit_should_not_be_able_to_access_admin_endpoints() {
+        var result = registerUnit();
         assertEquals(OK, result.getStatusCode());
 
         var sessionId = sessionId(result);
@@ -112,6 +170,35 @@ public class SecurityTests {
 
     private ResponseEntity<String> accessClientAccount(String sessionId) {
         return restTemplate.exchange("/clients-api/account", GET, request(sessionId), String.class);
+    }
+
+
+    private ResponseEntity<Void> registerUnit() {
+        var uri = fromPath("/units-api/register")
+                .queryParam("email", email)
+                .queryParam("password", password)
+                .build()
+                .toUri();
+
+        return restTemplate.postForEntity(uri, EMPTY, Void.class);
+    }
+
+    private ResponseEntity<Void> signInUnit() {
+        var uri = fromPath("/units-api/sign-in")
+                .queryParam("email", email)
+                .queryParam("password", password)
+                .build()
+                .toUri();
+
+        return restTemplate.postForEntity(uri, EMPTY, Void.class);
+    }
+    
+    private ResponseEntity<Void> signOutUnit(String sessionId) {
+        return restTemplate.exchange("/units-api/sign-out", POST, request(sessionId), Void.class);
+    }
+
+    private ResponseEntity<String> accessUnitAccount(String sessionId) {
+        return restTemplate.exchange("/units-api/account", GET, request(sessionId), String.class);
     }
 
     private ResponseEntity<String> accessAdminAccount(String sessionId) {

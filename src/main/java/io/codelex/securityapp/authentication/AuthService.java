@@ -17,6 +17,9 @@ public class AuthService {
         getContext().setAuthentication(token);
     }
 
+    public void register(String email, UserRoles role) {
+    }
+    
     public void clearAuthentication() {
         getContext().setAuthentication(null);
     }
