@@ -21,13 +21,13 @@ class UnitAuthenticationController {
     @PostMapping("/sign-in")
     public void signIn(@RequestParam("email") String email ,
                        @RequestParam("password") String password) {
-        authService.authorise(email, UNIT);
+        authService.authorise(email,password, UNIT);
     }
 
     @PostMapping("/register")
     public void register(@RequestParam("email") String email ,
                          @RequestParam("password") String password) {
-        authService.authorise(email, UNIT);
+        authService.authorise(email,password, UNIT);
     }
 
     @PostMapping("/sign-out")

@@ -1,6 +1,11 @@
 package io.codelex.securityapp.authentication.client;
 
+import io.codelex.securityapp.api.AddClientRequest;
 import io.codelex.securityapp.authentication.AuthService;
+import io.codelex.securityapp.repository.RepositoryClientService;
+import io.codelex.securityapp.repository.models.Client;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -11,21 +16,27 @@ import static io.codelex.securityapp.authentication.user.UserRoles.USER;
 @RequestMapping("/clients-api")
 class ClientAuthenticationController {
     private final AuthService authService;
+    private RepositoryClientService service;
 
-    ClientAuthenticationController(AuthService authService) {
+    ClientAuthenticationController(AuthService authService, RepositoryClientService service) {
         this.authService = authService;
+        this.service = service;
     }
 
     @PostMapping("/sign-in")
     public void signIn(@RequestParam("email") String email ,
                        @RequestParam("password") String password) {
-        authService.authorise(email, USER);
+        authService.authorise(email, password, USER);
     }
 
     @PostMapping("/register")
-    public void register(@RequestParam("email") String email ,
-                         @RequestParam("password") String password) {
-        authService.authorise(email, USER);
+    public ResponseEntity<Client> register(@RequestParam("email") String email ,
+                                           @RequestParam("password") String password,
+                                           @RequestParam("firstName") String firstName,
+                                           @RequestParam("lastName") String lastName) {
+        authService.register(email, password, USER);
+        AddClientRequest request = new AddClientRequest(firstName, lastName);
+        return new ResponseEntity<>(service.addClient(request), HttpStatus.CREATED);
     }
 
     @PostMapping("/sign-out")
