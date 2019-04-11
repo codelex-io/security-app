@@ -31,9 +31,8 @@ public class RepositoryIncidentService {
         );
         incident = repository.save(incident);
         notificationService.sendNotification("Client requested for incident received");
-
-        simpleNearestUnitService.searchNearestUnit(request.getLatitude(), request.getLongitude());
-        notificationService.sendNotification("Send acceptance notification");
+        simpleNearestUnitService.searchNearestUnit(incident);
+        notificationService.sendNotification("Send acceptance notification for unit");
 
         return incident;
     }

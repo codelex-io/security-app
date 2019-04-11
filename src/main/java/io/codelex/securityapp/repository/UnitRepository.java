@@ -12,5 +12,4 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
     @Query("SELECT unit from Unit unit where "
             + "available = true")
     List<Unit> searchAvailable();
-
 }

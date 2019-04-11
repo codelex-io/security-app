@@ -6,15 +6,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
-
 import static org.mockito.ArgumentMatchers.any;
-
 
 class RepositoryClientServiceTest {
 
-    ClientRepository repository = Mockito.mock(ClientRepository.class);
+    private ClientRepository repository = Mockito.mock(ClientRepository.class);
 
-    RepositoryClientService service = new RepositoryClientService(repository);
+    private RepositoryClientService service = new RepositoryClientService(repository);
 
     @Test
     void should_save_client() {
