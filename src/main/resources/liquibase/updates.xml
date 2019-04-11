@@ -37,6 +37,20 @@
                         nullable="false"
                 />
             </column>
+            <column
+                    name="email"
+                    type="email">
+                <constraints
+                        nullable="false"
+                />
+            </column>
+            <column
+                    name="password"
+                    type="varchar(255)">
+                <constraints
+                        nullable="false"
+                />
+            </column>
         </createTable>
     </changeSet>
     <changeSet id="create units table" author="martins">
