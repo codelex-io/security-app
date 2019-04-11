@@ -58,7 +58,7 @@ class SimpleNearestUnitServiceTest {
     void should_return_nearest_unit() throws Exception {
         //given
         Incident incident = new Incident(
-                new Client("name", "surname"),
+                new Client("name", "surname", email, password),
                 new BigDecimal(56.951855),
                 new BigDecimal(24.113781)
         );
@@ -124,7 +124,7 @@ class SimpleNearestUnitServiceTest {
     void should_throw_error_when_client_null() {
         //given
         Incident incident = new Incident(
-                new Client(null, null),
+                new Client(null, null, email, password),
                 new BigDecimal(56.951855),
                 new BigDecimal(24.113781)
         );

@@ -25,7 +25,7 @@ public class RepositoryIncidentService {
 
     public Incident addIncident(AddIncidentRequest request) {
         Incident incident = new Incident(
-                new Client("name", "surname"),
+                new Client("name", "surname", "john@doe.com", "123"),
                 request.getLatitude(),
                 request.getLongitude()
         );

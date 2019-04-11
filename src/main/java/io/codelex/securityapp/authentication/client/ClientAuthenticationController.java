@@ -24,18 +24,18 @@ class ClientAuthenticationController {
     }
 
     @PostMapping("/sign-in")
-    public void signIn(@RequestParam("email") String email ,
+    public void signIn(@RequestParam("email") String email,
                        @RequestParam("password") String password) {
         authService.authorise(email, password, USER);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Client> register(@RequestParam("email") String email ,
+    public ResponseEntity<Client> register(@RequestParam("email") String email,
                                            @RequestParam("password") String password,
                                            @RequestParam("firstName") String firstName,
                                            @RequestParam("lastName") String lastName) {
         authService.register(email, password, USER);
-        AddClientRequest request = new AddClientRequest(firstName, lastName);
+        AddClientRequest request = new AddClientRequest(firstName, lastName, email, password);
         return new ResponseEntity<>(service.addClient(request), HttpStatus.CREATED);
     }
 

@@ -17,8 +17,9 @@ public class RepositoryClientService {
     public Client addClient(AddClientRequest request) {
         Client client = new Client(
                 request.getFirstName(),
-                request.getLastName()
-        );
+                request.getLastName(),
+                request.getEmail(),
+                request.getPassword());
         client = clientRepository.save(client);
         return client;
     }

@@ -43,7 +43,7 @@ class RouteGatewayTest {
                 true
         );
         Incident incident = new Incident(
-                new Client("name", "surname"),
+                new Client("name", "surname", email, password),
                 new BigDecimal(24.113705),
                 new BigDecimal(56.254896)
         );
@@ -72,7 +72,7 @@ class RouteGatewayTest {
                 true
         );
         Incident incident = new Incident(
-                new Client("name", "surname"),
+                new Client("name", "surname", email, password),
                 new BigDecimal(24.113705),
                 new BigDecimal(56.254896)
         );

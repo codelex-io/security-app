@@ -39,7 +39,7 @@
             </column>
             <column
                     name="email"
-                    type="email">
+                    type="varchar(255)">
                 <constraints
                         nullable="false"
                 />
