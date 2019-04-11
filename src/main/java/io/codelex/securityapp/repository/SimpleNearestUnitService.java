@@ -18,7 +18,6 @@ public class SimpleNearestUnitService implements NearestUnitService {
         this.routeGateway = routeGateway;
     }
 
-
     @Override
     public Unit searchNearestUnit(Incident incident) {
 

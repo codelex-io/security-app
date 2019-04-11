@@ -11,5 +11,5 @@ spring:
     enabled: true
 
 maps:
-  api-url: https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=
+  api-url: https://maps.googleapis.com
   api-key: AIzaSyDcsLDxrAteVZEOc4h8zBJwVzs13Cb79OU
