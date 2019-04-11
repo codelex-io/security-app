@@ -1,21 +1,21 @@
 {
   "destination_addresses": [
-    "Unnamed Road, Īslīces pagasts, LV-3914, Latvia"
+    "Unnamed Road, Oman"
   ],
   "origin_addresses": [
-    "Uzvaras bulvāris 2, Zemgales priekšpilsēta, Rīga, LV-1048, Latvia"
+    "Unnamed Road - Ras al Khaimah - United Arab Emirates"
   ],
   "rows": [
     {
       "elements": [
         {
           "distance": {
-            "text": "86.9 km",
-            "value": 86926
+            "text": "129 km",
+            "value": 128773
           },
           "duration": {
-            "text": "1 hour 18 mins",
-            "value": 4690
+            "text": "1 hour 35 mins",
+            "value": 5685
           },
           "status": "OK"
         }

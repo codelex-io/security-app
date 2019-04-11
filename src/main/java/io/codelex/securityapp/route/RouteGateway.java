@@ -29,9 +29,10 @@ public class RouteGateway {
         BigDecimal incidentLongitude = incident.getLongitude().setScale(6,RoundingMode.DOWN);
 
         URI uri = UriComponentsBuilder.fromHttpUrl(props.getApiUrl())
-                .queryParam("key", props.getApiKey())
+                .path("/maps/api/distancematrix/json?units=metric")
                 .queryParam("origins", incidentLatitude + "," + incidentLongitude)
                 .queryParam("destinations", unitLatitude + "," + unitLongitude)
+                .queryParam("key", props.getApiKey())
                 .build()
                 .toUri();
 
