@@ -33,7 +33,7 @@ public class RepositoryIncidentService {
         notificationService.sendNotification("Client requested for incident received");
 
         simpleNearestUnitService.searchNearestUnit(incident);
-        notificationService.sendNotification("Send acceptance notification");
+        notificationService.sendNotification("Send acceptance notification for unit");
 
         return incident;
     }

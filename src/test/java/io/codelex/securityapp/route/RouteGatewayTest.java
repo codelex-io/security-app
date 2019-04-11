@@ -31,7 +31,6 @@ class RouteGatewayTest {
     void setUp() {
         GoogleMapsProps props = new GoogleMapsProps();
         props.setApiUrl("http://localhost:" + wireMock.port());
-        props.setApiKey("123");
         routeGateway = new RouteGateway(props);
     }
 
@@ -48,14 +47,13 @@ class RouteGatewayTest {
                 new BigDecimal(24.113705),
                 new BigDecimal(56.254896)
         );
-        
+
         File file = ResourceUtils.getFile(this.getClass().getResource("/stubs/successful-response.json"));
         Assertions.assertTrue(file.exists());
-        
+
         byte [] json = Files.readAllBytes(file.toPath());
 
-        wireMock.stubFor(get(urlPathEqualTo("/maps/api/distancematrix/json?units=metric"))
-                .withQueryParam("Key", equalTo("123"))
+        wireMock.stubFor(get(urlPathEqualTo("/maps/api/distancematrix/json"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/json; charset=utf-8")
                         .withStatus(200)
@@ -64,5 +62,28 @@ class RouteGatewayTest {
         Long distance = routeGateway.calculateRoute(unit, incident);
         //then
         Assertions.assertEquals(128773, distance);
+    }
+    
+    @Test
+    void should_handle_external_service_failure() {
+        Unit unit = new Unit(
+                new BigDecimal(24.941887),
+                new BigDecimal(56.095740),
+                true
+        );
+        Incident incident = new Incident(
+                new Client("name", "surname"),
+                new BigDecimal(24.113705),
+                new BigDecimal(56.254896)
+        );
+        //given
+        wireMock.stubFor(get(urlPathEqualTo("/maps/api/distancematrix/json"))
+                .willReturn(aResponse()
+                .withStatus(500)));
+        //when
+        Long distance = routeGateway.calculateRoute(unit, incident);
+        //then
+        Assertions.assertEquals(0, (long) distance);
+        
     }
 }
