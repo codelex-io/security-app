@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("client-api")
+@RequestMapping("/client-api")
 public class ClientController {
     private RepositoryClientService service;
 
