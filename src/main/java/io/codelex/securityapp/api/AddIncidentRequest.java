@@ -7,18 +7,23 @@ import java.math.BigDecimal;
 public class AddIncidentRequest {
     
     private BigDecimal latitude;
-    
     private BigDecimal longitude;
+    private String email;
 
     @JsonCreator
     public AddIncidentRequest(
             @JsonProperty("latitude") BigDecimal latitude,
-            @JsonProperty("longitude") BigDecimal longitude) {
+            @JsonProperty("longitude") BigDecimal longitude,
+            @JsonProperty("email") String email) {
       
         this.latitude = latitude;
         this.longitude = longitude;
+        this.email = email;
     }
-    
+
+    public String getEmail() {
+        return email;
+    }
 
     public BigDecimal getLatitude() {
         return latitude;

@@ -9,11 +9,11 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "clients_seq")
     private Long id;
+
     private String firstName;
     private String lastName;
-
-
     private String email;
+
     private String password;
 
     public Client() { }

@@ -4,6 +4,7 @@ import io.codelex.securityapp.NotificationService;
 import io.codelex.securityapp.api.AddIncidentRequest;
 import io.codelex.securityapp.repository.models.Client;
 import io.codelex.securityapp.repository.models.Incident;
+import io.codelex.securityapp.repository.models.Unit;
 import org.springframework.stereotype.Component;
 
 import java.util.NoSuchElementException;
@@ -11,28 +12,35 @@ import java.util.NoSuchElementException;
 @Component
 public class RepositoryIncidentService {
 
+
     private final SimpleNearestUnitService simpleNearestUnitService;
     private final IncidentRepository repository;
+    private final ClientRepository clientRepository;
     private final NotificationService notificationService;
 
     public RepositoryIncidentService(SimpleNearestUnitService simpleNearestUnitService,
                                      IncidentRepository repository,
-                                     NotificationService notificationService) {
+                                     ClientRepository clientRepository, NotificationService notificationService) {
         this.simpleNearestUnitService = simpleNearestUnitService;
         this.repository = repository;
+        this.clientRepository = clientRepository;
         this.notificationService = notificationService;
     }
 
     public Incident addIncident(AddIncidentRequest request) {
+        Client incidentClient = clientRepository.findClientByEmail(request.getEmail());
+
         Incident incident = new Incident(
-                new Client("name", "surname", "john@doe.com", "123"),
+                incidentClient,
                 request.getLatitude(),
                 request.getLongitude()
         );
         incident = repository.save(incident);
-        notificationService.sendNotification("Client requested for incident received");
-        simpleNearestUnitService.searchNearestUnit(incident);
-        notificationService.sendNotification("Send notification for unit");
+
+        notificationService.sendNotification("Client " + incidentClient.getEmail() + " request for incident received");
+        Unit respondingUnit = simpleNearestUnitService.searchNearestUnit(incident);
+
+        notificationService.sendNotification("Notification to the closest unit with Id: " + respondingUnit.getId() + " sent");
         return incident;
     }
 
