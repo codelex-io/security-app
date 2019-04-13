@@ -44,5 +44,4 @@ public class UnitRepositoryTest {
         //then
         Assertions.assertEquals(0, unitRepository.searchAvailable().size());
     }
-
 }
