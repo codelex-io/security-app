@@ -7,6 +7,7 @@ import io.codelex.securityapp.repository.models.Incident;
 import io.codelex.securityapp.repository.models.Unit;
 import org.springframework.stereotype.Component;
 
+import java.math.RoundingMode;
 import java.util.NoSuchElementException;
 
 @Component
@@ -32,13 +33,14 @@ public class RepositoryIncidentService {
 
         Incident incident = new Incident(
                 incidentClient,
-                request.getLatitude(),
-                request.getLongitude()
+                request.getLatitude().setScale(6, RoundingMode.DOWN),
+                request.getLongitude().setScale(6, RoundingMode.DOWN)
         );
         incident = repository.save(incident);
 
         notificationService.sendNotification("Client " + incidentClient.getEmail() + " request for incident received");
         Unit respondingUnit = simpleNearestUnitService.searchNearestUnit(incident);
+        //respondingUnit.setAvailable(false);
 
         notificationService.sendNotification("Notification to the closest unit with Id: " + respondingUnit.getId() + " sent");
         return incident;

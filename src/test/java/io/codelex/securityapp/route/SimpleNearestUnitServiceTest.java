@@ -56,18 +56,21 @@ class SimpleNearestUnitServiceTest {
     void should_return_nearest_unit() throws Exception {
         //given
         Incident incident = new Incident(
+                //Brivibas piemineklis
                 new Client("name", "surname", "email@example.com", "password"),
                 new BigDecimal(56.951855),
                 new BigDecimal(24.113781)
         );
 
         Unit closestUnit = new Unit(
+                //Vansu tilts
                 new BigDecimal(56.952092).setScale(6, RoundingMode.DOWN),
                 new BigDecimal(24.099975).setScale(6, RoundingMode.DOWN),
                 true
         );
 
         Unit farthestUnit = new Unit(
+                //Maskachka
                 new BigDecimal(56.940931).setScale(6, RoundingMode.DOWN),
                 new BigDecimal(24.137081).setScale(6, RoundingMode.DOWN),
                 true

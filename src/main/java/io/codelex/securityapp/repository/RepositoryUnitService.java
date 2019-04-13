@@ -26,7 +26,7 @@ public class RepositoryUnitService {
     }
 
     public void changeAvailability(Unit unit) {
-        unitRepository.changeStatus();
+        unitRepository.changeStatus(unit.getId());
     }
 
     public List<Unit> findAvailable() {

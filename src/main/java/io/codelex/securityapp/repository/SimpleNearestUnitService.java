@@ -26,7 +26,10 @@ public class SimpleNearestUnitService implements NearestUnitService {
         Collections.sort(closestUnits);
         Long closestRoute = closestUnits.get(0);
         Unit unit = routeUnitHashMap.get(closestRoute);
+        //unit.setAvailable(false);
+
         unitService.changeAvailability(unit);
+
         return unit;
     }
 

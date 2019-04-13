@@ -31,16 +31,6 @@ class ClientAuthenticationController {
         this.incidentService = incidentService;
     }
 
-    @PostMapping("/sign-in")
-    public ResponseEntity<Client> signIn(@RequestParam("email") String email,
-                                         @RequestParam("password") String password) {
-        if (clientService.isEmailPresent(email)) {
-            authService.authorise(email, password, USER);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        }
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-    }
-
     @PostMapping("/register")
     public ResponseEntity<Client> register(@RequestParam("email") String email,
                                            @RequestParam("password") String password,
@@ -53,6 +43,16 @@ class ClientAuthenticationController {
         authService.register(email, password, USER);
         AddClientRequest request = new AddClientRequest(firstName, lastName, email, password);
         return new ResponseEntity<>(clientService.addClient(request), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/sign-in")
+    public ResponseEntity<Client> signIn(@RequestParam("email") String email,
+                                         @RequestParam("password") String password) {
+        if (clientService.isEmailPresent(email)) {
+            authService.authorise(email, password, USER);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @PostMapping("/sign-out")

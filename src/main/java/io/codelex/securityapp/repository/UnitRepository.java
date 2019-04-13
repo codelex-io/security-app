@@ -4,7 +4,10 @@ import io.codelex.securityapp.repository.models.Unit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface UnitRepository extends JpaRepository<Unit, Long> {
@@ -15,6 +18,7 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
     
     @Transactional
     @Modifying
-    @Query("UPDATE Unit unit SET unit.available = CASE unit.available WHEN true THEN false ELSE true END")
-    void changeStatus();
+    @Query("UPDATE Unit unit SET unit.available = CASE unit.available WHEN true THEN false ELSE true END where " +
+            "unit.id in :id")
+    void changeStatus(@Param("id") Long id);
 }
