@@ -18,7 +18,7 @@ class RepositoryIncidentServiceTest {
     private RepositoryIncidentService service = new RepositoryIncidentService(
             nearestUnitService,
             repository,
-            notificationService);
+            clientRepository, notificationService);
     
     @Test
     void should_save_incident() {

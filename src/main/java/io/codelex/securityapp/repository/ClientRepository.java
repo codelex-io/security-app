@@ -12,7 +12,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query("select count (client) >0 from Client client where client.email = :email")
     boolean isEmailPresent(@Param("email") String email);
 
-    @Query("select client from Client client where client.password = :password")
-    boolean isPasswordCorrect(@Param("password") String password);
+
+    @Query("select client from Client client where client.email = :email")
+    Client findClientByEmail(@Param("email") String email);
 
 }

@@ -24,7 +24,11 @@ public class Unit {
 
     public Unit() {
     }
-    
+
+    public Long getId() {
+        return id;
+    }
+
     public BigDecimal getLatitude() {
         return latitude;
     }
