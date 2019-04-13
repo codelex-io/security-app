@@ -30,7 +30,7 @@ public class SecurityTests {
     
     @Test
     public void client_account_should_be_secured_by_default() {
-        var result = restTemplate.getForEntity("/clients-api/account", String.class);
+        var result = restTemplate.getForEntity("/clients-api/account/", String.class);
         assertEquals(FORBIDDEN, result.getStatusCode());
     }
 
