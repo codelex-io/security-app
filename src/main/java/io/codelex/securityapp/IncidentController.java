@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.NoSuchElementException;
+
 @RestController
 @RequestMapping("/incident-api")
 public class IncidentController {
@@ -24,7 +26,11 @@ public class IncidentController {
 
     @GetMapping("/incidents/{id}")
     public ResponseEntity<Incident> findById(@PathVariable Long id) {
-        return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 

@@ -29,9 +29,8 @@ import static org.mockito.Mockito.when;
 
 class SimpleNearestUnitServiceTest {
 
-    UnitRepository repository = Mockito.mock(UnitRepository.class);
+    private UnitRepository repository = Mockito.mock(UnitRepository.class);
     private RepositoryUnitService repositoryUnitService;
-
     private SimpleNearestUnitService nearestUnit;
 
     @Rule
@@ -51,14 +50,13 @@ class SimpleNearestUnitServiceTest {
 
         repositoryUnitService = new RepositoryUnitService(repository);
         nearestUnit = new SimpleNearestUnitService(repositoryUnitService, routeGateway);
-
     }
 
     @Test
     void should_return_nearest_unit() throws Exception {
         //given
         Incident incident = new Incident(
-                new Client("name", "surname", "email@email.com", "123"),
+                new Client("name", "surname", "email@example.com", "password"),
                 new BigDecimal(56.951855),
                 new BigDecimal(24.113781)
         );
@@ -119,5 +117,4 @@ class SimpleNearestUnitServiceTest {
         Assertions.assertNotNull(closestUnitFound);
         Assertions.assertEquals(closestUnit.getLatitude(), nearestUnit.searchNearestUnit(incident).getLatitude());
     }
-
 }

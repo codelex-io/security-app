@@ -43,7 +43,7 @@ class RouteGatewayTest {
                 true
         );
         Incident incident = new Incident(
-                new Client("name", "surname", "email@email.com", "123"),
+                new Client("name", "surname", "email@example.com", "password"),
                 new BigDecimal(24.113705),
                 new BigDecimal(56.254896)
         );
@@ -51,7 +51,7 @@ class RouteGatewayTest {
         File file = ResourceUtils.getFile(this.getClass().getResource("/stubs/successful-response.json"));
         Assertions.assertTrue(file.exists());
 
-        byte [] json = Files.readAllBytes(file.toPath());
+        byte[] json = Files.readAllBytes(file.toPath());
 
         wireMock.stubFor(get(urlPathEqualTo("/maps/api/distancematrix/json"))
                 .willReturn(aResponse()
@@ -63,7 +63,7 @@ class RouteGatewayTest {
         //then
         Assertions.assertEquals(128773, distance);
     }
-    
+
     @Test
     void should_handle_external_service_failure() {
         Unit unit = new Unit(
@@ -72,15 +72,15 @@ class RouteGatewayTest {
                 true
         );
         Incident incident = new Incident(
-                new Client("name", "surname","email@email.com", "123"),
+                new Client("name", "surname", "email@example.com", "password"),
                 new BigDecimal(24.113705),
                 new BigDecimal(56.254896)
         );
         //given
         wireMock.stubFor(get(urlPathEqualTo("/maps/api/distancematrix/json"))
                 .willReturn(aResponse()
-                .withStatus(500)));
+                        .withStatus(500)));
         //then
-        Assertions.assertThrows(IllegalStateException.class, () -> routeGateway.calculateRoute(unit,incident));
+        Assertions.assertThrows(IllegalStateException.class, () -> routeGateway.calculateRoute(unit, incident));
     }
 }

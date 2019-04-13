@@ -20,8 +20,8 @@ class RepositoryClientServiceTest {
         AddClientRequest request = new AddClientRequest(
                 "John",
                 "Doe",
-                "email@email.com",
-                "123"
+                "example@example.com",
+                "password"
         );
         Mockito.when(repository.save(any()))
                 .thenAnswer((Answer) invocation -> invocation.getArguments()[0]);
@@ -30,6 +30,4 @@ class RepositoryClientServiceTest {
         Assertions.assertEquals(request.getFirstName(), client.getFirstName());
         Assertions.assertEquals(request.getLastName(), client.getLastName());
     }
-
-
 }

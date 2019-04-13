@@ -55,5 +55,4 @@ class RepositoryUnitServiceTest {
         //then
         Assertions.assertEquals(unit.getAvailable(), units.get(0).getAvailable());
     }
-
 }
