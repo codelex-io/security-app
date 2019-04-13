@@ -34,11 +34,10 @@ class ClientAuthenticationController {
     @PostMapping("/sign-in")
     public ResponseEntity<Client> signIn(@RequestParam("email") String email,
                                          @RequestParam("password") String password) {
-        if (clientService.isEmailPresent(email))
-            if (clientService.isPasswordCorrect(password)) {
-                authService.authorise(email, password, USER);
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
+        if (clientService.isEmailPresent(email)) {
+            authService.authorise(email, password, USER);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
