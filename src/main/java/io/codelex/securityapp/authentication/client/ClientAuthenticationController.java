@@ -47,19 +47,6 @@ class ClientAuthenticationController {
         return new ResponseEntity<>(service.addClient(request), HttpStatus.CREATED);
     }
 
- /*   @PostMapping("/new-incident")
-    public ResponseEntity<Client> newIncident(@RequestParam("longitude") String email,
-                                           @RequestParam("latitude") String password)
-                                          {
-        if (service.isEmailPresent(email)) {
-            System.out.println("Email is already registered!");
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-        authService.register(email, password, USER);
-        AddClientRequest request = new AddClientRequest(firstName, lastName, email, password);
-        return new ResponseEntity<>(service.addClient(request), HttpStatus.CREATED);
-    }*/
-
     @PostMapping("/sign-out")
     public void signOut() {
         authService.clearAuthentication();
@@ -67,6 +54,6 @@ class ClientAuthenticationController {
 
     @GetMapping("/account")
     public String account(Principal principal) {
-        return principal.getName();
+        return principal.toString();
     }
 }
