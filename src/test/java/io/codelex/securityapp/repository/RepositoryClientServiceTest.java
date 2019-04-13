@@ -19,7 +19,9 @@ class RepositoryClientServiceTest {
         //given
         AddClientRequest request = new AddClientRequest(
                 "John",
-                "Doe"
+                "Doe",
+                "example@example.com",
+                "password"
         );
         Mockito.when(repository.save(any()))
                 .thenAnswer((Answer) invocation -> invocation.getArguments()[0]);
