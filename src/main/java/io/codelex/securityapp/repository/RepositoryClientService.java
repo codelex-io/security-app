@@ -6,8 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.NoSuchElementException;
 
+
 @Component
-public class RepositoryClientService {
+public class RepositoryClientService{
     private final ClientRepository clientRepository;
 
     public RepositoryClientService(ClientRepository clientRepository) {
@@ -24,8 +25,14 @@ public class RepositoryClientService {
         return client;
     }
 
+    public boolean isEmailPresent(String email) {
+        return clientRepository.isEmailPresent(email);
+    }
+
     public Client findById(Long id) {
         return clientRepository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
     }
+
+
 }

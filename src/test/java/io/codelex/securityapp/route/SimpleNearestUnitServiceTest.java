@@ -58,7 +58,7 @@ class SimpleNearestUnitServiceTest {
     void should_return_nearest_unit() throws Exception {
         //given
         Incident incident = new Incident(
-                new Client("name", "surname", email, password),
+                new Client("name", "surname", "email@email.com", "123"),
                 new BigDecimal(56.951855),
                 new BigDecimal(24.113781)
         );
@@ -119,21 +119,5 @@ class SimpleNearestUnitServiceTest {
         Assertions.assertNotNull(closestUnitFound);
         Assertions.assertEquals(closestUnit.getLatitude(), nearestUnit.searchNearestUnit(incident).getLatitude());
     }
-
-    @Test
-    void should_throw_error_when_client_null() {
-        //given
-        Incident incident = new Incident(
-                new Client(null, null, email, password),
-                new BigDecimal(56.951855),
-                new BigDecimal(24.113781)
-        );
-        //when
-
-
-        //then
-
-    }
-
 
 }

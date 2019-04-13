@@ -34,6 +34,9 @@ class ClientAuthenticationController {
                                            @RequestParam("password") String password,
                                            @RequestParam("firstName") String firstName,
                                            @RequestParam("lastName") String lastName) {
+        if (service.isEmailPresent(email)){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         authService.register(email, password, USER);
         AddClientRequest request = new AddClientRequest(firstName, lastName, email, password);
         return new ResponseEntity<>(service.addClient(request), HttpStatus.CREATED);

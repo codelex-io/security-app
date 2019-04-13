@@ -27,4 +27,6 @@ public class IncidentController {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
+
+
 }

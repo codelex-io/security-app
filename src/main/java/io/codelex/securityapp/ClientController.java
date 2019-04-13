@@ -16,11 +16,6 @@ public class ClientController {
         this.service = service;
     }
 
-    @PostMapping("/clients")
-    public ResponseEntity<Client> addClient(@RequestBody AddClientRequest request) {
-        return new ResponseEntity<>(service.addClient(request), HttpStatus.OK);
-    }
-    
     @GetMapping("/clients/{id}")
     public ResponseEntity<Client> findById(@PathVariable Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);

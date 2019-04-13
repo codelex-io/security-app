@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public class Incident {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "incidents_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "incidents_seq")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)

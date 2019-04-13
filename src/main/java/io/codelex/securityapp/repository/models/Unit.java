@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class Unit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "units_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "units_seq")
     private Long id;
 
     private BigDecimal latitude;
