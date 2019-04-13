@@ -29,6 +29,10 @@ public class RepositoryClientService{
         return clientRepository.isEmailPresent(email);
     }
 
+    public boolean isPasswordCorrect(String password) {
+        return clientRepository.isPasswordCorrect(password);
+    }
+
     public Client findById(Long id) {
         return clientRepository.findById(id)
                 .orElseThrow(NoSuchElementException::new);

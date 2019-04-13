@@ -16,6 +16,8 @@ public class Client {
     private String email;
     private String password;
 
+    public Client() { }
+
     public Client(String firstName,
                   String lastName, String email, String password) {
         this.firstName = firstName;

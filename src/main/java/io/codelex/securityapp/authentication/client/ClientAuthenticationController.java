@@ -7,7 +7,9 @@ import io.codelex.securityapp.repository.models.Client;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.security.Principal;
+
 import static io.codelex.securityapp.authentication.user.UserRoles.USER;
 
 @RestController
@@ -22,9 +24,13 @@ class ClientAuthenticationController {
     }
 
     @PostMapping("/sign-in")
-    public void signIn(@RequestParam("email") String email,
-                       @RequestParam("password") String password) {
-        authService.authorise(email, password, USER);
+    public ResponseEntity<Client> signIn(@RequestParam("email") String email,
+                                         @RequestParam("password") String password) {
+        if (service.isEmailPresent(email) && service.isPasswordCorrect(password)) {
+            authService.authorise(email, password, USER);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @PostMapping("/register")
@@ -32,13 +38,27 @@ class ClientAuthenticationController {
                                            @RequestParam("password") String password,
                                            @RequestParam("firstName") String firstName,
                                            @RequestParam("lastName") String lastName) {
-        if (service.isEmailPresent(email)){
+        if (service.isEmailPresent(email)) {
+            System.out.println("Email is already registered!");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         authService.register(email, password, USER);
         AddClientRequest request = new AddClientRequest(firstName, lastName, email, password);
         return new ResponseEntity<>(service.addClient(request), HttpStatus.CREATED);
     }
+
+ /*   @PostMapping("/new-incident")
+    public ResponseEntity<Client> newIncident(@RequestParam("longitude") String email,
+                                           @RequestParam("latitude") String password)
+                                          {
+        if (service.isEmailPresent(email)) {
+            System.out.println("Email is already registered!");
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        authService.register(email, password, USER);
+        AddClientRequest request = new AddClientRequest(firstName, lastName, email, password);
+        return new ResponseEntity<>(service.addClient(request), HttpStatus.CREATED);
+    }*/
 
     @PostMapping("/sign-out")
     public void signOut() {
