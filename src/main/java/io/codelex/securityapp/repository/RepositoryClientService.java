@@ -20,7 +20,7 @@ public class RepositoryClientService{
                 request.getFirstName(),
                 request.getLastName(),
                 request.getEmail(),
-                request.getPassword());
+                request.getPassword()); //todo password encryption
         client = clientRepository.save(client);
         return client;
     }

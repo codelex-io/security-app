@@ -24,7 +24,7 @@ class AdminController {
         return principal.getName();
     }
 
-    @PostMapping("/clients")
+    @PostMapping("/clients") //todo is needed?
     public ResponseEntity<Client> addClient(@RequestBody AddClientRequest request) {
         if (service.isEmailPresent(request.getEmail())) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);

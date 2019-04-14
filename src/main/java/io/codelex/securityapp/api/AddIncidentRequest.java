@@ -8,7 +8,7 @@ public class AddIncidentRequest {
     
     private BigDecimal latitude;
     private BigDecimal longitude;
-    private String email;
+    private String email; //todo needed?
 
     @JsonCreator
     public AddIncidentRequest(

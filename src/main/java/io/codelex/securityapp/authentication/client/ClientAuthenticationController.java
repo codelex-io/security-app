@@ -32,21 +32,21 @@ class ClientAuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Client> register(@RequestParam("email") String email,
+    public ResponseEntity<Client> register(@RequestParam("email") String email, //todo convert to json
                                            @RequestParam("password") String password,
                                            @RequestParam("firstName") String firstName,
                                            @RequestParam("lastName") String lastName) {
         if (clientService.isEmailPresent(email)) {
-            System.out.println("Email is already registered!");
+            System.out.println("Email is already registered!"); //todo sout is not used usually
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        authService.register(email, password, USER);
+        authService.register(email, password, USER); //todo after registration?
         AddClientRequest request = new AddClientRequest(firstName, lastName, email, password);
         return new ResponseEntity<>(clientService.addClient(request), HttpStatus.CREATED);
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<Client> signIn(@RequestParam("email") String email,
+    public ResponseEntity<Client> signIn(@RequestParam("email") String email, //todo json
                                          @RequestParam("password") String password) {
         if (clientService.isEmailPresent(email)) {
             authService.authorise(email, password, USER);

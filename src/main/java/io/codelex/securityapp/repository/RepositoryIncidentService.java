@@ -29,7 +29,7 @@ public class RepositoryIncidentService {
     }
 
     public Incident addIncident(AddIncidentRequest request) {
-        Client incidentClient = clientRepository.findClientByEmail(request.getEmail());
+        Client incidentClient = clientRepository.findClientByEmail(request.getEmail()); // todo bug
 
         Incident incident = new Incident(
                 incidentClient,

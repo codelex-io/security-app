@@ -9,6 +9,7 @@ import java.util.Set;
 
 import static io.codelex.securityapp.authentication.user.UserRoles.*;
 
+//todo?
 class UserRoleMapper implements GrantedAuthoritiesMapper {
 
     public Collection<? extends GrantedAuthority> mapAuthorities(Collection<? extends GrantedAuthority> authorities) {

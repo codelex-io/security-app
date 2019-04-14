@@ -11,7 +11,7 @@ import static io.codelex.securityapp.authentication.user.UserRoles.UNIT;
 @RestController
 @RequestMapping("/units-api")
 class UnitAuthenticationController {
-    @Autowired
+    @Autowired //todo double autowire
     private final AuthService authService;
 
     UnitAuthenticationController(AuthService authService) {
