@@ -16,29 +16,25 @@ public class RepositoryIncidentService {
 
     private final SimpleNearestUnitService simpleNearestUnitService;
     private final IncidentRepository repository;
-    private final ClientRepository clientRepository;
     private final NotificationService notificationService;
 
     public RepositoryIncidentService(SimpleNearestUnitService simpleNearestUnitService,
                                      IncidentRepository repository,
-                                     ClientRepository clientRepository, NotificationService notificationService) {
+                                     NotificationService notificationService) {
         this.simpleNearestUnitService = simpleNearestUnitService;
         this.repository = repository;
-        this.clientRepository = clientRepository;
         this.notificationService = notificationService;
     }
 
     public Incident addIncident(AddIncidentRequest request) {
-        Client incidentClient = clientRepository.findClientByEmail(request.getEmail()); // todo bug
-
         Incident incident = new Incident(
-                incidentClient,
+                new Client("name", "surname", "email", "password"),
                 request.getLatitude().setScale(6, RoundingMode.DOWN),
                 request.getLongitude().setScale(6, RoundingMode.DOWN)
         );
         incident = repository.save(incident);
 
-        notificationService.sendNotification("Client " + incidentClient.getEmail() + " request for incident received");
+        notificationService.sendNotification("Client request for incident received");
         Unit respondingUnit = simpleNearestUnitService.searchNearestUnit(incident);
         //respondingUnit.setAvailable(false);
 

@@ -7,19 +7,21 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
+
 import static org.mockito.ArgumentMatchers.any;
+
 import java.math.BigDecimal;
 
 class RepositoryIncidentServiceTest {
-    
+
     private IncidentRepository repository = Mockito.mock(IncidentRepository.class);
     private SimpleNearestUnitService nearestUnitService = Mockito.mock(SimpleNearestUnitService.class);
     private NotificationService notificationService = Mockito.mock(NotificationService.class);
     private RepositoryIncidentService service = new RepositoryIncidentService(
             nearestUnitService,
             repository,
-            clientRepository, notificationService);
-    
+            notificationService);
+
     @Test
     void should_save_incident() {
         //given

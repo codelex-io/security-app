@@ -31,28 +31,28 @@ class ClientAuthenticationController {
         this.incidentService = incidentService;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<Client> register(@RequestParam("email") String email, //todo convert to json
-                                           @RequestParam("password") String password,
-                                           @RequestParam("firstName") String firstName,
-                                           @RequestParam("lastName") String lastName) {
-        if (clientService.isEmailPresent(email)) {
-            System.out.println("Email is already registered!"); //todo sout is not used usually
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-        authService.register(email, password, USER); //todo after registration?
-        AddClientRequest request = new AddClientRequest(firstName, lastName, email, password);
-        return new ResponseEntity<>(clientService.addClient(request), HttpStatus.CREATED);
-    }
-
     @PostMapping("/sign-in")
-    public ResponseEntity<Client> signIn(@RequestParam("email") String email, //todo json
+    public ResponseEntity<Client> signIn(@RequestParam("email") String email,
                                          @RequestParam("password") String password) {
         if (clientService.isEmailPresent(email)) {
             authService.authorise(email, password, USER);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<Client> register(@RequestParam("email") String email,
+                                           @RequestParam("password") String password,
+                                           @RequestParam("firstName") String firstName,
+                                           @RequestParam("lastName") String lastName) {
+        if (clientService.isEmailPresent(email)) {
+            System.out.println("Email is already registered!");
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        authService.register(email, password, USER);
+        AddClientRequest request = new AddClientRequest(firstName, lastName, email, password);
+        return new ResponseEntity<>(clientService.addClient(request), HttpStatus.CREATED);
     }
 
     @PostMapping("/sign-out")
@@ -70,8 +70,7 @@ class ClientAuthenticationController {
         return new ResponseEntity<>(incidentService.addIncident(
                 new AddIncidentRequest(
                         new BigDecimal(56.941887),
-                        new BigDecimal(24.09574),
-                        principal.getName())),
+                        new BigDecimal(24.09574))),
                 HttpStatus.ACCEPTED);
     }
 }
