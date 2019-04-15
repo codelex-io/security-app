@@ -1,9 +1,11 @@
 package io.codelex.securityapp.repository;
 
+import io.codelex.securityapp.NotificationService;
 import io.codelex.securityapp.repository.models.Incident;
 import io.codelex.securityapp.repository.models.Unit;
 import io.codelex.securityapp.route.RouteGateway;
 import org.springframework.stereotype.Component;
+
 import java.util.*;
 
 @Component
@@ -11,25 +13,24 @@ public class SimpleNearestUnitService implements NearestUnitService {
 
     private final RepositoryUnitService unitService;
     private final RouteGateway routeGateway;
+    private final NotificationService notificationService;
 
-    public SimpleNearestUnitService(RepositoryUnitService unitService, RouteGateway routeGateway) {
+    public SimpleNearestUnitService(RepositoryUnitService unitService, RouteGateway routeGateway, NotificationService notificationService) {
         this.unitService = unitService;
         this.routeGateway = routeGateway;
+        this.notificationService = notificationService;
     }
 
     @Override
     public Unit searchNearestUnit(Incident incident) {
-
         HashMap<Long, Unit> routeUnitHashMap = availableUnitHashMap(incident);
 
         List<Long> closestUnits = new ArrayList<>(routeUnitHashMap.keySet());
         Collections.sort(closestUnits);
         Long closestRoute = closestUnits.get(0);
         Unit unit = routeUnitHashMap.get(closestRoute);
-        //unit.setAvailable(false);
-
+        
         unitService.changeAvailability(unit);
-
         return unit;
     }
 

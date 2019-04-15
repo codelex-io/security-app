@@ -8,21 +8,14 @@ public class AddIncidentRequest {
     
     private BigDecimal latitude;
     private BigDecimal longitude;
-    private String email; //todo needed?
 
     @JsonCreator
     public AddIncidentRequest(
             @JsonProperty("latitude") BigDecimal latitude,
-            @JsonProperty("longitude") BigDecimal longitude,
-            @JsonProperty("email") String email) {
+            @JsonProperty("longitude") BigDecimal longitude) {
       
         this.latitude = latitude;
         this.longitude = longitude;
-        this.email = email;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public BigDecimal getLatitude() {

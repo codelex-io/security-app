@@ -13,6 +13,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 
+
 class RepositoryUnitServiceTest {
 
     private UnitRepository repository = Mockito.mock(UnitRepository.class);
@@ -55,4 +56,5 @@ class RepositoryUnitServiceTest {
         //then
         Assertions.assertEquals(unit.getAvailable(), units.get(0).getAvailable());
     }
+    
 }
