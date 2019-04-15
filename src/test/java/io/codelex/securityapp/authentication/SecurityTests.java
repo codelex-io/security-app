@@ -1,7 +1,6 @@
 package io.codelex.securityapp.authentication;
 
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,9 +26,9 @@ public class SecurityTests {
     @Autowired
     TestRestTemplate restTemplate;
 
-    static final String email = "dev@codelex.io";
-    static final String password = "Password123";
-    static final String firstName = "John";
+    private static final String email = "dev@codelex.io";
+    private static final String password = "Password123";
+    private static final String firstName = "John";
     static final String lastName = "Doe";
 
     @Test

@@ -5,7 +5,6 @@ import io.codelex.securityapp.api.UnitLogin;
 import io.codelex.securityapp.authentication.AuthService;
 import io.codelex.securityapp.repository.RepositoryUnitService;
 import io.codelex.securityapp.repository.models.Unit;
-import org.hibernate.annotations.Synchronize;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

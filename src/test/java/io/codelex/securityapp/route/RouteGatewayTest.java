@@ -38,7 +38,7 @@ class RouteGatewayTest {
     void should_fetch_distance() throws Exception {
         //given
         Unit unit = new Unit(
-                email, password, new BigDecimal(24.941887),
+                "John@Doe.com", "123", new BigDecimal(24.941887),
                 new BigDecimal(56.095740),
                 true
         );
@@ -67,7 +67,7 @@ class RouteGatewayTest {
     @Test
     void should_handle_external_service_failure() {
         Unit unit = new Unit(
-                email, password, new BigDecimal(24.941887),
+                "John@Doe.com", "123", new BigDecimal(24.941887),
                 new BigDecimal(56.095740),
                 true
         );
