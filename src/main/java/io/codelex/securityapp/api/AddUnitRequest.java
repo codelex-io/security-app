@@ -9,7 +9,7 @@ public class AddUnitRequest {
 
     private BigDecimal latitude;
     private BigDecimal longitude;
-    private Boolean available; //todo primitive?
+    private boolean available;
     
     @JsonCreator
     public AddUnitRequest(@JsonProperty("latitude") BigDecimal latitude,

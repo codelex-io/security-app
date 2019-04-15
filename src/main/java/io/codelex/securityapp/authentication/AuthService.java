@@ -11,14 +11,7 @@ import static org.springframework.security.core.context.SecurityContextHolder.ge
 @Component
 public class AuthService {
 
-    //todo copy paste?
-    public void authorise(String email, String password, UserRoles role) {
-        var authorities = singleton(new SimpleGrantedAuthority("ROLE_" + role.getAuthority()));
-        var token = new UsernamePasswordAuthenticationToken(email, password, authorities);
-        getContext().setAuthentication(token);
-    }
-
-    public void register(String email, String password, UserRoles role) {
+    public void authorize(String email, String password, UserRoles role) {
         var authorities = singleton(new SimpleGrantedAuthority("ROLE_" + role.getAuthority()));
         var token = new UsernamePasswordAuthenticationToken(email, password, authorities);
         getContext().setAuthentication(token);

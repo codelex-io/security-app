@@ -3,10 +3,11 @@ package io.codelex.securityapp.repository;
 import io.codelex.securityapp.api.*;
 import io.codelex.securityapp.repository.models.Client;
 import org.springframework.stereotype.Component;
+
 import java.util.NoSuchElementException;
 
 @Component
-public class RepositoryClientService{
+public class RepositoryClientService {
     private final ClientRepository clientRepository;
 
     public RepositoryClientService(ClientRepository clientRepository) {
@@ -15,8 +16,8 @@ public class RepositoryClientService{
 
     public Client addClient(AddClientRequest request) {
         Client client = new Client(
-                request.getFirstName(),
-                request.getLastName(),
+                inputValidator(request.getFirstName()),
+                inputValidator(request.getLastName()),
                 request.getEmail(),
                 request.getPassword()); //todo password encryption
         client = clientRepository.save(client);
@@ -30,5 +31,10 @@ public class RepositoryClientService{
     public Client findById(Long id) {
         return clientRepository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
+    }
+
+    private String inputValidator(String input) {
+        String correct = input.replaceAll("\\s+","");
+        return correct.toLowerCase().trim().substring(0, 1).toUpperCase() + correct.substring(1);
     }
 }
