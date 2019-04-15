@@ -13,12 +13,11 @@ public class SimpleNearestUnitService implements NearestUnitService {
 
     private final RepositoryUnitService unitService;
     private final RouteGateway routeGateway;
-    private final NotificationService notificationService;
 
-    public SimpleNearestUnitService(RepositoryUnitService unitService, RouteGateway routeGateway, NotificationService notificationService) {
+    public SimpleNearestUnitService(RepositoryUnitService unitService,
+                                    RouteGateway routeGateway) {
         this.unitService = unitService;
         this.routeGateway = routeGateway;
-        this.notificationService = notificationService;
     }
 
     @Override
@@ -29,7 +28,7 @@ public class SimpleNearestUnitService implements NearestUnitService {
         Collections.sort(closestUnits);
         Long closestRoute = closestUnits.get(0);
         Unit unit = routeUnitHashMap.get(closestRoute);
-        
+
         unitService.changeAvailability(unit);
         return unit;
     }

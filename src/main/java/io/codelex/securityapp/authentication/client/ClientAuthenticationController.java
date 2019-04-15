@@ -16,8 +16,6 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.security.Principal;
 
-import static io.codelex.securityapp.authentication.user.UserRoles.USER;
-
 @RestController
 @RequestMapping("/clients-api")
 class ClientAuthenticationController {
@@ -36,7 +34,7 @@ class ClientAuthenticationController {
     @PostMapping("/sign-in")
     public ResponseEntity<Client> signIn(@Valid @RequestBody ClientLogin request) {
         if (clientService.isEmailPresent(request.getEmail())) {
-            authService.authorize(request.getEmail(), request.getPassword(), USER);
+            authService.authorizeClient(request.getEmail(), request.getPassword());
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -48,7 +46,7 @@ class ClientAuthenticationController {
             System.out.println("Email is already registered!");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        authService.authorize(request.getEmail(), request.getPassword(), USER);
+        authService.authorizeClient(request.getEmail(), request.getPassword());
         return new ResponseEntity<>(clientService.addClient(request), HttpStatus.CREATED);
     }
 

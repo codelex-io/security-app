@@ -66,14 +66,14 @@ class SimpleNearestUnitServiceTest {
 
         Unit closestUnit = new Unit(
                 //Vansu tilts
-                new BigDecimal(56.952092).setScale(6, RoundingMode.DOWN),
+                email, password, new BigDecimal(56.952092).setScale(6, RoundingMode.DOWN),
                 new BigDecimal(24.099975).setScale(6, RoundingMode.DOWN),
                 true
         );
 
         Unit farthestUnit = new Unit(
                 //Maskachka
-                new BigDecimal(56.940931).setScale(6, RoundingMode.DOWN),
+                email, password, new BigDecimal(56.940931).setScale(6, RoundingMode.DOWN),
                 new BigDecimal(24.137081).setScale(6, RoundingMode.DOWN),
                 true
         );

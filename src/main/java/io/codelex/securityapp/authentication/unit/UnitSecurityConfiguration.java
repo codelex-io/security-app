@@ -14,7 +14,8 @@ class UnitSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.antMatcher("/units-api/**")
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/units-api/sign-in", "/units-api/register").permitAll()
+                .antMatchers("/units-api/sign-in", "/units-api/register")
+                .permitAll()
                 .anyRequest().hasRole(UserRoles.UNIT.name());
     }
 }
