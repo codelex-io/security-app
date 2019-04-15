@@ -3,9 +3,7 @@ package io.codelex.securityapp.repository;
 import io.codelex.securityapp.api.*;
 import io.codelex.securityapp.repository.models.Client;
 import org.springframework.stereotype.Component;
-
 import java.util.NoSuchElementException;
-
 
 @Component
 public class RepositoryClientService{
@@ -33,6 +31,4 @@ public class RepositoryClientService{
         return clientRepository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
     }
-
-
 }

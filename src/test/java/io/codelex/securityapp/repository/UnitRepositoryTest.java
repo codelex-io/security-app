@@ -30,7 +30,6 @@ public class UnitRepositoryTest {
         //then
         Assertions.assertEquals(1, unitRepository.searchAvailable().size());
         Assertions.assertNotNull(unitRepository.findAll());
-
     }
 
     @Test
@@ -43,5 +42,33 @@ public class UnitRepositoryTest {
         unitRepository.save(unit);
         //then
         Assertions.assertEquals(0, unitRepository.searchAvailable().size());
+    }
+
+    @Test
+    void should_change_availability_status_to_false() {
+        //given
+        Unit unit = new Unit(
+                new BigDecimal(1),
+                new BigDecimal(2),
+                true);
+        unitRepository.save(unit);
+        //when
+        unitRepository.changeStatus(unit.getId());
+        //then
+        Assertions.assertEquals(0, unitRepository.searchAvailable().size());
+    }
+
+    @Test
+    void should_change_availability_status_to_true() {
+        //given
+        Unit unit = new Unit(
+                new BigDecimal(1),
+                new BigDecimal(2),
+                false);
+        unitRepository.save(unit);
+        //when
+        unitRepository.changeStatus(unit.getId());
+        //then
+        Assertions.assertEquals(1, unitRepository.searchAvailable().size());
     }
 }

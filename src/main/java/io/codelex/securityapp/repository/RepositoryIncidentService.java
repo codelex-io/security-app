@@ -4,7 +4,6 @@ import io.codelex.securityapp.NotificationService;
 import io.codelex.securityapp.api.AddIncidentRequest;
 import io.codelex.securityapp.repository.models.Client;
 import io.codelex.securityapp.repository.models.Incident;
-import io.codelex.securityapp.repository.models.Unit;
 import org.springframework.stereotype.Component;
 
 import java.math.RoundingMode;
@@ -33,12 +32,9 @@ public class RepositoryIncidentService {
                 request.getLongitude().setScale(6, RoundingMode.DOWN)
         );
         incident = repository.save(incident);
-
         notificationService.sendNotification("Client request for incident received");
-        Unit respondingUnit = simpleNearestUnitService.searchNearestUnit(incident);
-        //respondingUnit.setAvailable(false);
-
-        notificationService.sendNotification("Notification to the closest unit with Id: " + respondingUnit.getId() + " sent");
+        simpleNearestUnitService.searchNearestUnit(incident);
+        notificationService.sendNotification("Notification to the closest unit sent");
         return incident;
     }
 

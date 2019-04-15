@@ -1,6 +1,7 @@
 package io.codelex.securityapp.route;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import io.codelex.securityapp.NotificationService;
 import io.codelex.securityapp.repository.RepositoryUnitService;
 import io.codelex.securityapp.repository.SimpleNearestUnitService;
 import io.codelex.securityapp.repository.UnitRepository;
@@ -32,6 +33,7 @@ class SimpleNearestUnitServiceTest {
     private UnitRepository repository = Mockito.mock(UnitRepository.class);
     private RepositoryUnitService repositoryUnitService;
     private SimpleNearestUnitService nearestUnit;
+    private NotificationService notificationService;
 
     @Rule
     static WireMockRule wireMock = new WireMockRule();
@@ -49,7 +51,7 @@ class SimpleNearestUnitServiceTest {
         routeGateway = new RouteGateway(props);
 
         repositoryUnitService = new RepositoryUnitService(repository);
-        nearestUnit = new SimpleNearestUnitService(repositoryUnitService, routeGateway);
+        nearestUnit = new SimpleNearestUnitService(repositoryUnitService, routeGateway, notificationService);
     }
 
     @Test
@@ -95,8 +97,8 @@ class SimpleNearestUnitServiceTest {
         File fileFarthest = ResourceUtils.getFile(this.getClass().getResource("/stubs/farthest.json"));
         Assertions.assertTrue(fileFarthest.exists());
 
-        byte [] closestUnitFile = Files.readAllBytes(fileClosest.toPath());
-        byte [] farthestUnitFile = Files.readAllBytes(fileFarthest.toPath());
+        byte[] closestUnitFile = Files.readAllBytes(fileClosest.toPath());
+        byte[] farthestUnitFile = Files.readAllBytes(fileFarthest.toPath());
 
         wireMock.stubFor(get(urlPathEqualTo("/maps/api/distancematrix/json"))
                 .withQueryParam("destinations", equalTo(closestLocation))
@@ -114,9 +116,7 @@ class SimpleNearestUnitServiceTest {
 
         //then
         Unit closestUnitFound = nearestUnit.searchNearestUnit(incident);
-
         Assertions.assertEquals(closestUnit, closestUnitFound);
-
         Assertions.assertNotNull(closestUnitFound);
         Assertions.assertEquals(closestUnit.getLatitude(), nearestUnit.searchNearestUnit(incident).getLatitude());
     }
