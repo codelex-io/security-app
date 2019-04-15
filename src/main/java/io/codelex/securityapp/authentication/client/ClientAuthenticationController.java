@@ -2,6 +2,7 @@ package io.codelex.securityapp.authentication.client;
 
 import io.codelex.securityapp.api.AddClientRequest;
 import io.codelex.securityapp.api.AddIncidentRequest;
+import io.codelex.securityapp.api.ClientLogin;
 import io.codelex.securityapp.authentication.AuthService;
 import io.codelex.securityapp.repository.RepositoryClientService;
 import io.codelex.securityapp.repository.RepositoryIncidentService;
@@ -33,10 +34,9 @@ class ClientAuthenticationController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<Client> signIn(@RequestParam("email") String email,
-                                         @RequestParam("password") String password) {
-        if (clientService.isEmailPresent(email)) {
-            authService.authorize(email, password, USER);
+    public ResponseEntity<Client> signIn(@Valid @RequestBody ClientLogin request) {
+        if (clientService.isEmailPresent(request.getEmail())) {
+            authService.authorize(request.getEmail(), request.getPassword(), USER);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -48,7 +48,7 @@ class ClientAuthenticationController {
             System.out.println("Email is already registered!");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        authService.authorize(request.getEmail(),request.getPassword(), USER);
+        authService.authorize(request.getEmail(), request.getPassword(), USER);
         return new ResponseEntity<>(clientService.addClient(request), HttpStatus.CREATED);
     }
 
