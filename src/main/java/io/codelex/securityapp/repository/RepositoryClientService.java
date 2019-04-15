@@ -34,7 +34,7 @@ public class RepositoryClientService {
     }
 
     private String inputValidator(String input) {
-        String correct = input.replaceAll("\\s+","");
+        String correct = input.toLowerCase().replaceAll("\\s+","");
         return correct.toLowerCase().trim().substring(0, 1).toUpperCase() + correct.substring(1);
     }
 }
