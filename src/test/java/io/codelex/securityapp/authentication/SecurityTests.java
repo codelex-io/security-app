@@ -1,33 +1,33 @@
 package io.codelex.securityapp.authentication;
 
+import io.codelex.securityapp.repository.models.Client;
+import io.codelex.securityapp.repository.models.Unit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-import static org.springframework.http.HttpEntity.EMPTY;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
-import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.web.util.UriComponentsBuilder.fromPath;
+import static org.springframework.http.HttpStatus.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class SecurityTests {
     @Autowired
     TestRestTemplate restTemplate;
 
-    static final String email = "dev@codelex.io";
-    static final String password = "Password123";
-    
+    private static final String email = "John@Doe.com";
+
     @Test
     public void client_account_should_be_secured_by_default() {
         var result = restTemplate.getForEntity("/clients-api/account", String.class);
@@ -37,28 +37,40 @@ public class SecurityTests {
     @Test
     public void client_should_be_authorised_on_registration() {
         var result = registerClient();
-        assertEquals(OK, result.getStatusCode());
+        assertEquals(CREATED, result.getStatusCode());
 
         var sessionId = sessionId(result);
         assertEquals(OK, accessClientAccount(sessionId).getStatusCode());
     }
 
     @Test
-    public void client_should_be_authorised_on_sign_in() {
+    public void client_should_be_authorised_on_valid_sign_in() {
         var result = registerClient();
-        assertEquals(OK, result.getStatusCode());
+        assertEquals(CREATED, result.getStatusCode());
 
         result = signInClient();
-        assertEquals(OK, result.getStatusCode());
+        assertEquals(ACCEPTED, result.getStatusCode());
 
         var sessionId = sessionId(result);
         assertEquals(OK, accessClientAccount(sessionId).getStatusCode());
+    }
+
+    @Test
+    public void client_should_not_be_authorised_when_entering_wrong_email() {
+        var result = registerClient();
+        assertEquals(CREATED, result.getStatusCode());
+
+        result = invalidEmailSignInClient();
+        assertEquals(UNAUTHORIZED, result.getStatusCode());
+
+        var sessionId = sessionId(result);
+        assertEquals(FORBIDDEN, accessClientAccount(sessionId).getStatusCode());
     }
 
     @Test
     public void client_should_be_able_to_sign_out() {
         var result = registerClient();
-        assertEquals(OK, result.getStatusCode());
+        assertEquals(CREATED, result.getStatusCode());
 
         var sessionId = sessionId(result);
 
@@ -71,7 +83,7 @@ public class SecurityTests {
     @Test
     public void client_should_be_able_to_get_account_details() {
         var result = registerClient();
-        assertEquals(OK, result.getStatusCode());
+        assertEquals(CREATED, result.getStatusCode());
 
         var sessionId = sessionId(result);
         assertEquals(email, accessClientAccount(sessionId).getBody());
@@ -80,7 +92,7 @@ public class SecurityTests {
     @Test
     public void client_should_not_be_able_to_access_admin_endpoints() {
         var result = registerClient();
-        assertEquals(OK, result.getStatusCode());
+        assertEquals(CREATED, result.getStatusCode());
 
         var sessionId = sessionId(result);
         assertEquals(FORBIDDEN, accessAdminAccount(sessionId).getStatusCode());
@@ -95,7 +107,7 @@ public class SecurityTests {
     @Test
     public void unit_should_be_authorised_on_registration() {
         var result = registerUnit();
-        assertEquals(OK, result.getStatusCode());
+        assertEquals(CREATED, result.getStatusCode());
 
         var sessionId = sessionId(result);
         assertEquals(OK, accessUnitAccount(sessionId).getStatusCode());
@@ -104,19 +116,31 @@ public class SecurityTests {
     @Test
     public void unit_should_be_authorised_on_sign_in() {
         var result = registerUnit();
-        assertEquals(OK, result.getStatusCode());
+        assertEquals(CREATED, result.getStatusCode());
 
         result = signInUnit();
-        assertEquals(OK, result.getStatusCode());
+        assertEquals(ACCEPTED, result.getStatusCode());
 
         var sessionId = sessionId(result);
         assertEquals(OK, accessUnitAccount(sessionId).getStatusCode());
     }
 
     @Test
+    public void unit_should_not_be_authorised_when_entering_wrong_email() {
+        var result = registerUnit();
+        assertEquals(CREATED, result.getStatusCode());
+
+        result = invalidEmailSignInUnit();
+        assertEquals(UNAUTHORIZED, result.getStatusCode());
+
+        var sessionId = sessionId(result);
+        assertEquals(FORBIDDEN, accessClientAccount(sessionId).getStatusCode());
+    }
+
+    @Test
     public void unit_should_be_able_to_sign_out() {
         var result = registerUnit();
-        assertEquals(OK, result.getStatusCode());
+        assertEquals(CREATED, result.getStatusCode());
 
         var sessionId = sessionId(result);
 
@@ -129,7 +153,7 @@ public class SecurityTests {
     @Test
     public void unit_should_be_able_to_get_account_details() {
         var result = registerUnit();
-        assertEquals(OK, result.getStatusCode());
+        assertEquals(CREATED, result.getStatusCode());
 
         var sessionId = sessionId(result);
         assertEquals(email, accessUnitAccount(sessionId).getBody());
@@ -138,30 +162,46 @@ public class SecurityTests {
     @Test
     public void unit_should_not_be_able_to_access_admin_endpoints() {
         var result = registerUnit();
-        assertEquals(OK, result.getStatusCode());
+        assertEquals(CREATED, result.getStatusCode());
 
         var sessionId = sessionId(result);
         assertEquals(FORBIDDEN, accessAdminAccount(sessionId).getStatusCode());
     }
 
     private ResponseEntity<Void> registerClient() {
-        var uri = fromPath("/clients-api/register")
-                .queryParam("email", email)
-                .queryParam("password", password)
-                .build()
-                .toUri();
+        final String uri = "/clients-api/register";
+        HttpEntity<Client> request = new HttpEntity<>(new Client(
+                "John",
+                "Doe",
+                "John@Doe.com",
+                "123456"
+        ));
 
-        return restTemplate.postForEntity(uri, EMPTY, Void.class);
+        return restTemplate.postForEntity(uri, request, Void.class);
     }
 
     private ResponseEntity<Void> signInClient() {
-        var uri = fromPath("/clients-api/sign-in")
-                .queryParam("email", email)
-                .queryParam("password", password)
-                .build()
-                .toUri();
+        final String uri = "/clients-api/sign-in";
+        HttpEntity<Client> request = new HttpEntity<>(new Client(
+                "John",
+                "Doe",
+                "John@Doe.com",
+                "123456"
+        ));
 
-        return restTemplate.postForEntity(uri, EMPTY, Void.class);
+        return restTemplate.postForEntity(uri, request, Void.class);
+    }
+
+    private ResponseEntity<Void> invalidEmailSignInClient() {
+        final String uri = "/clients-api/sign-in";
+        HttpEntity<Client> request = new HttpEntity<>(new Client(
+                "John",
+                "Doe",
+                "John1@Doe.com",
+                "123456"
+        ));
+
+        return restTemplate.postForEntity(uri, request, Void.class);
     }
 
     private ResponseEntity<Void> signOutClient(String sessionId) {
@@ -172,27 +212,46 @@ public class SecurityTests {
         return restTemplate.exchange("/clients-api/account", GET, request(sessionId), String.class);
     }
 
-
     private ResponseEntity<Void> registerUnit() {
-        var uri = fromPath("/units-api/register")
-                .queryParam("email", email)
-                .queryParam("password", password)
-                .build()
-                .toUri();
+        final String uri = "/units-api/register";
+        HttpEntity<Unit> request = new HttpEntity<>(new Unit(
+                "John@Doe.com",
+                "123456",
+                new BigDecimal(56.952092),
+                new BigDecimal(24.099975),
+                true
+        ));
 
-        return restTemplate.postForEntity(uri, EMPTY, Void.class);
+        return restTemplate.postForEntity(uri, request, Void.class);
     }
 
     private ResponseEntity<Void> signInUnit() {
-        var uri = fromPath("/units-api/sign-in")
-                .queryParam("email", email)
-                .queryParam("password", password)
-                .build()
-                .toUri();
+        final String uri = "/units-api/sign-in";
+        HttpEntity<Unit> request = new HttpEntity<>(new Unit(
+                "John@Doe.com",
+                "123456",
+                new BigDecimal(56.952092),
+                new BigDecimal(24.099975),
+                true
+        ));
 
-        return restTemplate.postForEntity(uri, EMPTY, Void.class);
+        return restTemplate.postForEntity(uri, request, Void.class);
     }
-    
+
+    private ResponseEntity<Void> invalidEmailSignInUnit() {
+        final String uri = "/units-api/sign-in";
+        HttpEntity<Unit> request = new HttpEntity<>(new Unit(
+                "John1@Doe.com",
+                "123456",
+                new BigDecimal(56.952092),
+                new BigDecimal(24.099975),
+                true
+        ));
+
+        return restTemplate.postForEntity(uri, request, Void.class);
+    }
+
+
     private ResponseEntity<Void> signOutUnit(String sessionId) {
         return restTemplate.exchange("/units-api/sign-out", POST, request(sessionId), Void.class);
     }

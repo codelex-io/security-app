@@ -23,7 +23,7 @@ public class UnitRepositoryTest {
     void should_find_available_unit() {
         //given
         Unit unit = (new Unit(
-                new BigDecimal(1),
+                "John@Doe.com", "123", new BigDecimal(1),
                 new BigDecimal(2),
                 true));
         unitRepository.save(unit);
@@ -36,7 +36,7 @@ public class UnitRepositoryTest {
     void should_not_find_unit_if_not_available() {
         //given
         Unit unit = (new Unit(
-                new BigDecimal(1),
+                "John@Doe.com", "123", new BigDecimal(1),
                 new BigDecimal(2),
                 false));
         unitRepository.save(unit);
@@ -48,7 +48,7 @@ public class UnitRepositoryTest {
     void should_change_availability_status_to_false() {
         //given
         Unit unit = new Unit(
-                new BigDecimal(1),
+                "John@Doe.com", "123", new BigDecimal(1),
                 new BigDecimal(2),
                 true);
         unitRepository.save(unit);
@@ -62,7 +62,7 @@ public class UnitRepositoryTest {
     void should_change_availability_status_to_true() {
         //given
         Unit unit = new Unit(
-                new BigDecimal(1),
+                "John@Doe.com", "123", new BigDecimal(1),
                 new BigDecimal(2),
                 false);
         unitRepository.save(unit);

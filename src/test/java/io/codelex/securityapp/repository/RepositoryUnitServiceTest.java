@@ -23,7 +23,7 @@ class RepositoryUnitServiceTest {
     void should_save_unit() {
         //given
         AddUnitRequest request = new AddUnitRequest(
-                new BigDecimal(22.2222),
+                "John@Doe.com", "123", new BigDecimal(22.2222),
                 new BigDecimal(11.1111),
                 true
         );
@@ -40,7 +40,7 @@ class RepositoryUnitServiceTest {
     void should_find_available_units() {
         //given
         Unit unit = new Unit(
-                new BigDecimal(22.2222),
+                "John@Doe.com", "123", new BigDecimal(22.2222),
                 new BigDecimal(11.1111),
                 true
         );

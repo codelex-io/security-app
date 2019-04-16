@@ -12,17 +12,33 @@ public class Unit {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "units_seq")
     private Long id;
 
+    private String email;
+    private String password;
     private BigDecimal latitude;
     private BigDecimal longitude;
     private Boolean available;
 
-    public Unit(BigDecimal latitude, BigDecimal longitude, Boolean available) {
+    public Unit(String email,
+                String password,
+                BigDecimal latitude,
+                BigDecimal longitude,
+                Boolean available) {
+        this.email = email;
+        this.password = password;
         this.latitude = latitude;
         this.longitude = longitude;
         this.available = available;
     }
 
     public Unit() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public Long getId() {

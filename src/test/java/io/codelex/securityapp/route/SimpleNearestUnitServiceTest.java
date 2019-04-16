@@ -51,7 +51,7 @@ class SimpleNearestUnitServiceTest {
         routeGateway = new RouteGateway(props);
 
         repositoryUnitService = new RepositoryUnitService(repository);
-        nearestUnit = new SimpleNearestUnitService(repositoryUnitService, routeGateway, notificationService);
+        nearestUnit = new SimpleNearestUnitService(repositoryUnitService, routeGateway);
     }
 
     @Test
@@ -66,14 +66,14 @@ class SimpleNearestUnitServiceTest {
 
         Unit closestUnit = new Unit(
                 //Vansu tilts
-                new BigDecimal(56.952092).setScale(6, RoundingMode.DOWN),
+                "John@Doe.com", "123", new BigDecimal(56.952092).setScale(6, RoundingMode.DOWN),
                 new BigDecimal(24.099975).setScale(6, RoundingMode.DOWN),
                 true
         );
 
         Unit farthestUnit = new Unit(
                 //Maskachka
-                new BigDecimal(56.940931).setScale(6, RoundingMode.DOWN),
+                "John@Doe.com", "123", new BigDecimal(56.940931).setScale(6, RoundingMode.DOWN),
                 new BigDecimal(24.137081).setScale(6, RoundingMode.DOWN),
                 true
         );

@@ -17,6 +17,8 @@ public class RepositoryUnitService {
 
     public Unit addUnit(AddUnitRequest request) {
         Unit unit = new Unit(
+                request.getEmail(),
+                request.getPassword(),
                 request.getLatitude(),
                 request.getLongitude(),
                 request.getAvailable()
@@ -25,7 +27,10 @@ public class RepositoryUnitService {
         return unit;
     }
 
-    public void changeAvailability(Unit unit) {
+    public boolean isEmailPresent(String email) {
+        return unitRepository.isEmailPresent(email);
+    }
+    void changeAvailability(Unit unit) {
         unitRepository.changeStatus(unit.getId());
     }
 
@@ -37,5 +42,6 @@ public class RepositoryUnitService {
         return unitRepository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
     }
+
 }
 

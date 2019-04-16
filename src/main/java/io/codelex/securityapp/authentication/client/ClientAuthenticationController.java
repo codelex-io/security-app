@@ -2,6 +2,7 @@ package io.codelex.securityapp.authentication.client;
 
 import io.codelex.securityapp.api.AddClientRequest;
 import io.codelex.securityapp.api.AddIncidentRequest;
+import io.codelex.securityapp.api.ClientLogin;
 import io.codelex.securityapp.authentication.AuthService;
 import io.codelex.securityapp.repository.RepositoryClientService;
 import io.codelex.securityapp.repository.RepositoryIncidentService;
@@ -11,10 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.security.Principal;
-
-import static io.codelex.securityapp.authentication.user.UserRoles.USER;
 
 @RestController
 @RequestMapping("/clients-api")
@@ -32,26 +32,22 @@ class ClientAuthenticationController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<Client> signIn(@RequestParam("email") String email,
-                                         @RequestParam("password") String password) {
-        if (clientService.isEmailPresent(email)) {
-            authService.authorise(email, password, USER);
+    public ResponseEntity<Client> signIn(@Valid @RequestBody ClientLogin request) {
+        if (clientService.isEmailPresent(request.getEmail())) {
+            authService.authorizeClient(request.getEmail(), request.getPassword());
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Client> register(@RequestParam("email") String email,
-                                           @RequestParam("password") String password,
-                                           @RequestParam("firstName") String firstName,
-                                           @RequestParam("lastName") String lastName) {
-        if (clientService.isEmailPresent(email)) {
+    public ResponseEntity<Client> register(@Valid @RequestBody AddClientRequest request) {
+
+        if (clientService.isEmailPresent(request.getEmail())) {
             System.out.println("Email is already registered!");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        authService.register(email, password, USER);
-        AddClientRequest request = new AddClientRequest(firstName, lastName, email, password);
+        authService.authorizeClient(request.getEmail(), request.getPassword());
         return new ResponseEntity<>(clientService.addClient(request), HttpStatus.CREATED);
     }
 
