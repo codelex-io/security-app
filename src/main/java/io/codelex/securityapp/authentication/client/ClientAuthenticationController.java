@@ -42,6 +42,7 @@ class ClientAuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<Client> register(@Valid @RequestBody AddClientRequest request) {
+
         if (clientService.isEmailPresent(request.getEmail())) {
             System.out.println("Email is already registered!");
             return new ResponseEntity<>(HttpStatus.CONFLICT);

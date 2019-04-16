@@ -23,7 +23,7 @@ public class AddClientRequest {
                             @JsonProperty("password") String password) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.email = email.toLowerCase();
         this.password = password;
     }
 

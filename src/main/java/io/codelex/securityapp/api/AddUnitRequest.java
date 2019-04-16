@@ -23,7 +23,7 @@ public class AddUnitRequest {
                           @JsonProperty("latitude") BigDecimal latitude,
                           @JsonProperty("longitude") BigDecimal longitude,
                           @JsonProperty("available") Boolean available) {
-        this.email = email;
+        this.email = email.toLowerCase();
         this.password = password;
         this.latitude = latitude;
         this.longitude = longitude;

@@ -18,7 +18,7 @@ public class ClientLogin {
     @JsonCreator
     public ClientLogin(@JsonProperty("email") String email,
                        @JsonProperty("password") String password) {
-        this.email = email;
+        this.email = email.toLowerCase();
         this.password = password;
     }
 
