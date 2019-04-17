@@ -45,8 +45,8 @@ class RouteGatewayTest {
         Incident incident = new Incident(
                 new Client("name", "surname", "email@example.com", "password"),
                 new BigDecimal(24.113705),
-                new BigDecimal(56.254896)
-        );
+                new BigDecimal(56.254896),
+                startTime);
 
         File file = ResourceUtils.getFile(this.getClass().getResource("/stubs/successful-response.json"));
         Assertions.assertTrue(file.exists());
@@ -74,8 +74,8 @@ class RouteGatewayTest {
         Incident incident = new Incident(
                 new Client("name", "surname", "email@example.com", "password"),
                 new BigDecimal(24.113705),
-                new BigDecimal(56.254896)
-        );
+                new BigDecimal(56.254896),
+                startTime);
         //given
         wireMock.stubFor(get(urlPathEqualTo("/maps/api/distancematrix/json"))
                 .willReturn(aResponse()

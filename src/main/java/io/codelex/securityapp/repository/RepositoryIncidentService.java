@@ -7,6 +7,7 @@ import io.codelex.securityapp.repository.models.Incident;
 import org.springframework.stereotype.Component;
 
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 
 @Component
@@ -29,8 +30,8 @@ public class RepositoryIncidentService {
         Incident incident = new Incident(
                 new Client("name", "surname", "email", "password"),
                 request.getLatitude().setScale(6, RoundingMode.DOWN),
-                request.getLongitude().setScale(6, RoundingMode.DOWN)
-        );
+                request.getLongitude().setScale(6, RoundingMode.DOWN),
+                LocalDateTime.now());
         incident = repository.save(incident);
         notificationService.sendNotification("Client request for incident received");
         simpleNearestUnitService.searchNearestUnit(incident);

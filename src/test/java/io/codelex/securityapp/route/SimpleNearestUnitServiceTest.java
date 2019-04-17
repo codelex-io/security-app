@@ -61,8 +61,8 @@ class SimpleNearestUnitServiceTest {
                 //Brivibas piemineklis
                 new Client("name", "surname", "email@example.com", "password"),
                 new BigDecimal(56.951855),
-                new BigDecimal(24.113781)
-        );
+                new BigDecimal(24.113781),
+                startTime);
 
         Unit closestUnit = new Unit(
                 //Vansu tilts

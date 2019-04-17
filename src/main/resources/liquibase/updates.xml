@@ -135,6 +135,15 @@
                 />
             </column>
             <column
+                    name="create_time"
+                    type="datetime"
+            >
+                <constraints
+                        primaryKey="false"
+                        nullable="true"
+                />
+            </column>
+            <column
                     name="latitude"
                     type="DECIMAL(9,6)"
             >
