@@ -11,7 +11,6 @@ import io.codelex.securityapp.repository.models.Incident;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -19,6 +18,7 @@ import java.security.Principal;
 @RestController
 @RequestMapping("/clients-api")
 class ClientAuthenticationController {
+    
     private final AuthService authService;
     private RepositoryClientService clientService;
     private RepositoryIncidentService incidentService;
@@ -33,7 +33,7 @@ class ClientAuthenticationController {
 
     @PostMapping("/sign-in")
     public ResponseEntity<Client> signIn(@Valid @RequestBody ClientLogin request) {
-        if (clientService.isEmailPresent(request.getEmail())) {
+        if (clientService.isEmailPresent(request.getEmail()) && clientService.isPasswordMatching(request.getEmail(), request.getPassword())) {
             authService.authorizeClient(request.getEmail(), request.getPassword());
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }

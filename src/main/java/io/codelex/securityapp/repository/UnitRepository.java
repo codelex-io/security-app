@@ -1,5 +1,6 @@
 package io.codelex.securityapp.repository;
 
+import io.codelex.securityapp.repository.models.Client;
 import io.codelex.securityapp.repository.models.Unit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -23,4 +24,7 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
     @Query("UPDATE Unit unit SET unit.available = CASE unit.available " +
             "WHEN true THEN false ELSE true END where unit.id in :id")
     void changeStatus(@Param("id") Long id);
+
+    @Query("select unit from Unit unit where unit.email = :email")
+    Unit findUnitByEmail(@Param("email") String email);
 }
