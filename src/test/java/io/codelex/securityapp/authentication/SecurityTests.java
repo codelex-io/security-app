@@ -173,7 +173,7 @@ public class SecurityTests {
         HttpEntity<Client> request = new HttpEntity<>(new Client(
                 "John",
                 "Doe",
-                "John@Doe.com",
+                "john@doe.com",
                 "123456"
         ));
 
@@ -185,7 +185,7 @@ public class SecurityTests {
         HttpEntity<Client> request = new HttpEntity<>(new Client(
                 "John",
                 "Doe",
-                "John@Doe.com",
+                "john@doe.com",
                 "123456"
         ));
 
@@ -197,7 +197,7 @@ public class SecurityTests {
         HttpEntity<Client> request = new HttpEntity<>(new Client(
                 "John",
                 "Doe",
-                "John1@Doe.com",
+                "john1@doe.com",
                 "123456"
         ));
 
@@ -215,7 +215,7 @@ public class SecurityTests {
     private ResponseEntity<Void> registerUnit() {
         final String uri = "/units-api/register";
         HttpEntity<Unit> request = new HttpEntity<>(new Unit(
-                "John@Doe.com",
+                "john@doe.com",
                 "123456",
                 new BigDecimal(56.952092),
                 new BigDecimal(24.099975),
@@ -228,7 +228,7 @@ public class SecurityTests {
     private ResponseEntity<Void> signInUnit() {
         final String uri = "/units-api/sign-in";
         HttpEntity<Unit> request = new HttpEntity<>(new Unit(
-                "John@Doe.com",
+                "john@doe.com",
                 "123456",
                 new BigDecimal(56.952092),
                 new BigDecimal(24.099975),
@@ -241,7 +241,7 @@ public class SecurityTests {
     private ResponseEntity<Void> invalidEmailSignInUnit() {
         final String uri = "/units-api/sign-in";
         HttpEntity<Unit> request = new HttpEntity<>(new Unit(
-                "John1@Doe.com",
+                "john1@doe.com",
                 "123456",
                 new BigDecimal(56.952092),
                 new BigDecimal(24.099975),

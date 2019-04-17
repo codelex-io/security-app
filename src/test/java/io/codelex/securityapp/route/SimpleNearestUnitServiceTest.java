@@ -21,6 +21,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.file.Files;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +63,7 @@ class SimpleNearestUnitServiceTest {
                 new Client("name", "surname", "email@example.com", "password"),
                 new BigDecimal(56.951855),
                 new BigDecimal(24.113781),
-                startTime);
+                LocalDateTime.now());
 
         Unit closestUnit = new Unit(
                 //Vansu tilts

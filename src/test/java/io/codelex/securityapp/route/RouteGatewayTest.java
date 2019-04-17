@@ -14,6 +14,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.math.BigDecimal;
 import java.nio.file.Files;
+import java.time.LocalDateTime;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
@@ -46,7 +47,7 @@ class RouteGatewayTest {
                 new Client("name", "surname", "email@example.com", "password"),
                 new BigDecimal(24.113705),
                 new BigDecimal(56.254896),
-                startTime);
+                LocalDateTime.now());
 
         File file = ResourceUtils.getFile(this.getClass().getResource("/stubs/successful-response.json"));
         Assertions.assertTrue(file.exists());
@@ -75,7 +76,7 @@ class RouteGatewayTest {
                 new Client("name", "surname", "email@example.com", "password"),
                 new BigDecimal(24.113705),
                 new BigDecimal(56.254896),
-                startTime);
+                LocalDateTime.now());
         //given
         wireMock.stubFor(get(urlPathEqualTo("/maps/api/distancematrix/json"))
                 .willReturn(aResponse()
