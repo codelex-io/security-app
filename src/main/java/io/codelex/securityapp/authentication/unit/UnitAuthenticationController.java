@@ -27,7 +27,7 @@ class UnitAuthenticationController {
 
     @PostMapping("/sign-in")
     public ResponseEntity<Unit> signIn(@Valid @RequestBody UnitLogin request) {
-        if (unitService.isEmailPresent(request.getEmail())) {
+        if (unitService.isEmailPresent(request.getEmail()) && unitService.isPasswordMatching(request.getEmail(), request.getPassword())) {
             authService.authorizeUnit(request.getEmail(), request.getPassword());
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }

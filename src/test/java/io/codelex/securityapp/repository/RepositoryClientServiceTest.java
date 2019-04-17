@@ -1,5 +1,6 @@
 package io.codelex.securityapp.repository;
 
+import io.codelex.securityapp.Password;
 import io.codelex.securityapp.api.AddClientRequest;
 import io.codelex.securityapp.repository.models.Client;
 import org.junit.jupiter.api.Assertions;
@@ -9,10 +10,10 @@ import org.mockito.stubbing.Answer;
 import static org.mockito.ArgumentMatchers.any;
 
 class RepositoryClientServiceTest {
-
+    private Password encoder = new Password();
     private ClientRepository repository = Mockito.mock(ClientRepository.class);
 
-    private RepositoryClientService service = new RepositoryClientService(repository);
+    private RepositoryClientService service = new RepositoryClientService(encoder, repository);
 
     @Test
     void should_save_client() {

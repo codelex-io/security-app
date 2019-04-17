@@ -1,29 +1,31 @@
 package io.codelex.securityapp.repository;
 
+import io.codelex.securityapp.Password;
 import io.codelex.securityapp.api.AddUnitRequest;
 import io.codelex.securityapp.repository.models.Unit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 
-
 class RepositoryUnitServiceTest {
-
+    
+    private Password encoder = new Password();
     private UnitRepository repository = Mockito.mock(UnitRepository.class);
-    private RepositoryUnitService service = new RepositoryUnitService(repository);
+    private RepositoryUnitService service = new RepositoryUnitService(encoder, repository);
 
     @Test
     void should_save_unit() {
         //given
         AddUnitRequest request = new AddUnitRequest(
-                "John@Doe.com", "123", new BigDecimal(22.2222),
+                "John@Doe.com",
+                "12345",
+                new BigDecimal(22.2222),
                 new BigDecimal(11.1111),
                 true
         );

@@ -1,5 +1,6 @@
 package io.codelex.securityapp.repository;
 
+import io.codelex.securityapp.Password;
 import io.codelex.securityapp.api.*;
 import io.codelex.securityapp.repository.models.Client;
 import org.springframework.stereotype.Component;
@@ -8,9 +9,12 @@ import java.util.NoSuchElementException;
 
 @Component
 public class RepositoryClientService {
+
+    private Password encoder;
     private final ClientRepository clientRepository;
 
-    public RepositoryClientService(ClientRepository clientRepository) {
+    public RepositoryClientService(Password encoder, ClientRepository clientRepository) {
+        this.encoder = encoder;
         this.clientRepository = clientRepository;
     }
 
@@ -19,7 +23,7 @@ public class RepositoryClientService {
                 inputValidator(request.getFirstName()),
                 inputValidator(request.getLastName()),
                 request.getEmail(),
-                request.getPassword()); //todo password encryption
+                encoder.passwordEncoder().encode(request.getPassword()));
         client = clientRepository.save(client);
         return client;
     }
@@ -28,13 +32,18 @@ public class RepositoryClientService {
         return clientRepository.isEmailPresent(email);
     }
 
+    public boolean isPasswordMatching(String email, String password) {
+        Client client = clientRepository.findClientByEmail(email);
+        return encoder.passwordEncoder().matches(password, client.getPassword());
+    }
+
     public Client findById(Long id) {
         return clientRepository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
     }
 
     private String inputValidator(String input) {
-        String correct = input.toLowerCase().replaceAll("\\s+","");
+        String correct = input.toLowerCase().replaceAll("\\s+", "");
         return correct.toLowerCase().trim().substring(0, 1).toUpperCase() + correct.substring(1);
     }
 }

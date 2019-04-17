@@ -2,6 +2,7 @@ package io.codelex.securityapp.route;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import io.codelex.securityapp.NotificationService;
+import io.codelex.securityapp.Password;
 import io.codelex.securityapp.repository.RepositoryUnitService;
 import io.codelex.securityapp.repository.SimpleNearestUnitService;
 import io.codelex.securityapp.repository.UnitRepository;
@@ -34,11 +35,12 @@ class SimpleNearestUnitServiceTest {
     private UnitRepository repository = Mockito.mock(UnitRepository.class);
     private RepositoryUnitService repositoryUnitService;
     private SimpleNearestUnitService nearestUnit;
-    private NotificationService notificationService;
-
+    private Password encoder;
+    
     @Rule
     static WireMockRule wireMock = new WireMockRule();
     private RouteGateway routeGateway;
+    
 
     @BeforeAll
     static void setUpOnce() {
@@ -50,8 +52,7 @@ class SimpleNearestUnitServiceTest {
         GoogleMapsProps props = new GoogleMapsProps();
         props.setApiUrl("http://localhost:" + wireMock.port());
         routeGateway = new RouteGateway(props);
-
-        repositoryUnitService = new RepositoryUnitService(repository);
+        repositoryUnitService = new RepositoryUnitService(encoder, repository);
         nearestUnit = new SimpleNearestUnitService(repositoryUnitService, routeGateway);
     }
 

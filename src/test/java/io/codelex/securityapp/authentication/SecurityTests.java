@@ -10,9 +10,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.math.BigDecimal;
-
 import static org.junit.Assert.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.HttpMethod.GET;
