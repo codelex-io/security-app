@@ -137,6 +137,7 @@
             <column
                     name="create_time"
                     type="datetime"
+                    valueDate="YYYY-MM-DDThh:mm:ss"
             >
                 <constraints
                         primaryKey="false"

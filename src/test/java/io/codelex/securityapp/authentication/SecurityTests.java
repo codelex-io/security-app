@@ -24,7 +24,7 @@ public class SecurityTests {
     @Autowired
     TestRestTemplate restTemplate;
 
-    private static final String email = "John@Doe.com";
+    private static final String email = "john@doe.com";
 
     @Test
     public void client_account_should_be_secured_by_default() {
