@@ -33,7 +33,7 @@ public class RepositoryIncidentService {
                 request.getLongitude().setScale(6, RoundingMode.DOWN),
                 LocalDateTime.now());
         incident = repository.save(incident);
-        notificationService.sendNotification("Client request for incident received");
+        notificationService.sendNotification("Client request for incident received.");
         simpleNearestUnitService.searchNearestUnit(incident);
         notificationService.sendNotification("Notification to the closest unit sent");
         return incident;
