@@ -10,7 +10,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import java.math.BigDecimal;
+
 import static org.junit.Assert.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.HttpMethod.GET;
@@ -24,7 +26,7 @@ public class SecurityTests {
     @Autowired
     TestRestTemplate restTemplate;
 
-    private static final String email = "john@doe.com";
+    private static final String email = "john@joe.com";
 
     @Test
     public void client_account_should_be_secured_by_default() {
@@ -171,7 +173,7 @@ public class SecurityTests {
         HttpEntity<Client> request = new HttpEntity<>(new Client(
                 "John",
                 "Doe",
-                "john@doe.com",
+                "John@Doe.com",
                 "123456"
         ));
 
@@ -183,7 +185,7 @@ public class SecurityTests {
         HttpEntity<Client> request = new HttpEntity<>(new Client(
                 "John",
                 "Doe",
-                "john@doe.com",
+                "John@Doe.com",
                 "123456"
         ));
 
@@ -195,7 +197,7 @@ public class SecurityTests {
         HttpEntity<Client> request = new HttpEntity<>(new Client(
                 "John",
                 "Doe",
-                "john1@doe.com",
+                "John1@Doe.com",
                 "123456"
         ));
 
@@ -213,7 +215,7 @@ public class SecurityTests {
     private ResponseEntity<Void> registerUnit() {
         final String uri = "/units-api/register";
         HttpEntity<Unit> request = new HttpEntity<>(new Unit(
-                "john@doe.com",
+                "John@Doe.com",
                 "123456",
                 new BigDecimal(56.952092),
                 new BigDecimal(24.099975),
@@ -226,7 +228,7 @@ public class SecurityTests {
     private ResponseEntity<Void> signInUnit() {
         final String uri = "/units-api/sign-in";
         HttpEntity<Unit> request = new HttpEntity<>(new Unit(
-                "john@doe.com",
+                "John@Doe.com",
                 "123456",
                 new BigDecimal(56.952092),
                 new BigDecimal(24.099975),
@@ -239,7 +241,7 @@ public class SecurityTests {
     private ResponseEntity<Void> invalidEmailSignInUnit() {
         final String uri = "/units-api/sign-in";
         HttpEntity<Unit> request = new HttpEntity<>(new Unit(
-                "john1@doe.com",
+                "John1@Doe.com",
                 "123456",
                 new BigDecimal(56.952092),
                 new BigDecimal(24.099975),
