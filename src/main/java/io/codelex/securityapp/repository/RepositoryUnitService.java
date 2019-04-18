@@ -2,9 +2,7 @@ package io.codelex.securityapp.repository;
 
 import io.codelex.securityapp.Password;
 import io.codelex.securityapp.api.AddUnitRequest;
-import io.codelex.securityapp.repository.models.Client;
 import io.codelex.securityapp.repository.models.Unit;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -38,10 +36,14 @@ public class RepositoryUnitService {
     }
 
     public boolean isPasswordMatching(String email, String password) {
-        Unit unit = unitRepository.findUnitByEmail(email);
+        Unit unit = getUnitByEmail(email);
         return encoder.passwordEncoder().matches(password, unit.getPassword());
     }
-    
+
+    private Unit getUnitByEmail(String email) {
+        return unitRepository.findUnitByEmail(email);
+    }
+
     void changeAvailability(Unit unit) {
         unitRepository.changeStatus(unit.getId());
     }
