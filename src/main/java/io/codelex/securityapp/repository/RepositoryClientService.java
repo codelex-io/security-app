@@ -33,13 +33,18 @@ public class RepositoryClientService {
     }
 
     public boolean isPasswordMatching(String email, String password) {
-        Client client = clientRepository.findClientByEmail(email);
+        Client client = getClientByEmail(email);
         return encoder.passwordEncoder().matches(password, client.getPassword());
     }
+
 
     public Client findById(Long id) {
         return clientRepository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
+    }
+
+    private Client getClientByEmail(String email) {
+        return clientRepository.findClientByEmail(email);
     }
 
     private String inputValidator(String input) {

@@ -1,6 +1,5 @@
 package io.codelex.securityapp.repository;
 
-import io.codelex.securityapp.NotificationService;
 import io.codelex.securityapp.repository.models.Incident;
 import io.codelex.securityapp.repository.models.Unit;
 import io.codelex.securityapp.route.RouteGateway;

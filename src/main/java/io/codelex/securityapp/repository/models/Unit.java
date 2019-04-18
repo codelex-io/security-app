@@ -57,7 +57,4 @@ public class Unit {
         return available;
     }
 
-    public void setAvailable(Boolean available) {
-        this.available = available;
-    }
 }
