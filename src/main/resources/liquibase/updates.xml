@@ -135,6 +135,15 @@
                 />
             </column>
             <column
+                    name="unit_id"
+                    type="bigint"
+            >
+                <constraints
+                        primaryKey="false"
+                        nullable="true"
+                />
+            </column>
+            <column
                     name="create_time"
                     type="datetime"
                     valueDate="YYYY-MM-DDThh:mm:ss"
@@ -174,6 +183,19 @@
                 tableName="incidents"
                 indexName="idx_incidents_client_id">
             <column name="client_id"/>
+        </createIndex>
+        <addForeignKeyConstraint
+                baseTableName="incidents"
+                baseColumnNames="unit_id"
+                constraintName="fk_incidents_unitId_unit_id"
+                referencedTableName="units"
+                referencedColumnNames="id"
+                onDelete="SET NULL"
+        />
+        <createIndex
+                tableName="incidents"
+                indexName="idx_incidents_unit_id">
+            <column name="unit_id"/>
         </createIndex>
     </changeSet>
 </databaseChangeLog>
