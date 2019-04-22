@@ -2,6 +2,7 @@ package io.codelex.securityapp.route;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import io.codelex.securityapp.Password;
+import io.codelex.securityapp.api.AddIncidentRequest;
 import io.codelex.securityapp.repository.RepositoryUnitService;
 import io.codelex.securityapp.repository.SimpleNearestUnitService;
 import io.codelex.securityapp.repository.UnitRepository;
@@ -58,12 +59,6 @@ class SimpleNearestUnitServiceTest {
     @Test
     void should_return_nearest_unit() throws Exception {
         //given
-        Incident incident = new Incident(
-                //Brivibas piemineklis
-                new Client("name", "surname", "email@example.com", "password"),
-                unit, new BigDecimal(56.951855),
-                new BigDecimal(24.113781),
-                LocalDateTime.now());
 
         Unit closestUnit = new Unit(
                 //Vansu tilts
@@ -77,6 +72,11 @@ class SimpleNearestUnitServiceTest {
                 "John@Doe.com", "123", new BigDecimal(56.940931).setScale(6, RoundingMode.DOWN),
                 new BigDecimal(24.137081).setScale(6, RoundingMode.DOWN),
                 true
+        );
+
+        AddIncidentRequest request = new AddIncidentRequest(
+                "john@doe.com", new BigDecimal(24.941887).setScale(6, RoundingMode.DOWN),
+                new BigDecimal(56.095740).setScale(6, RoundingMode.DOWN)
         );
 
         List<Unit> unitList = new ArrayList<>();
@@ -116,9 +116,9 @@ class SimpleNearestUnitServiceTest {
                         .withBody(farthestUnitFile)));
 
         //then
-        Unit closestUnitFound = nearestUnit.searchNearestUnit(incident);
+        Unit closestUnitFound = nearestUnit.searchNearestUnit(request);
         Assertions.assertEquals(closestUnit, closestUnitFound);
         Assertions.assertNotNull(closestUnitFound);
-        Assertions.assertEquals(closestUnit.getLatitude(), nearestUnit.searchNearestUnit(incident).getLatitude());
+        Assertions.assertEquals(closestUnit.getLatitude(), nearestUnit.searchNearestUnit(request).getLatitude());
     }
 }

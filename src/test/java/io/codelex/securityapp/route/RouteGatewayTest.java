@@ -1,6 +1,7 @@
 package io.codelex.securityapp.route;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import io.codelex.securityapp.api.AddIncidentRequest;
 import io.codelex.securityapp.repository.models.Client;
 import io.codelex.securityapp.repository.models.Incident;
 import io.codelex.securityapp.repository.models.Unit;
@@ -13,6 +14,7 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 
@@ -43,11 +45,11 @@ class RouteGatewayTest {
                 new BigDecimal(56.095740),
                 true
         );
-        Incident incident = new Incident(
-                new Client("name", "surname", "email@example.com", "password"),
-                unit, new BigDecimal(24.113705),
-                new BigDecimal(56.254896),
-                LocalDateTime.now());
+        AddIncidentRequest request = new AddIncidentRequest(
+                "john@doe.com",
+                new BigDecimal(24.941887).setScale(6, RoundingMode.DOWN),
+                new BigDecimal(56.095740).setScale(6, RoundingMode.DOWN)
+        );
 
         File file = ResourceUtils.getFile(this.getClass().getResource("/stubs/successful-response.json"));
         Assertions.assertTrue(file.exists());
@@ -60,28 +62,29 @@ class RouteGatewayTest {
                         .withStatus(200)
                         .withBody(json)));
         //when
-        Long distance = routeGateway.calculateRoute(unit, incident);
+        Long distance = routeGateway.calculateRoute(unit, request);
         //then
         Assertions.assertEquals(128773, distance);
     }
 
     @Test
     void should_handle_external_service_failure() {
+        AddIncidentRequest request = new AddIncidentRequest(
+                "john@doe.com", new BigDecimal(24.941887).setScale(6, RoundingMode.DOWN),
+                new BigDecimal(56.095740).setScale(6, RoundingMode.DOWN)
+        );
+
         Unit unit = new Unit(
                 "John@Doe.com", "123", new BigDecimal(24.941887),
                 new BigDecimal(56.095740),
                 true
         );
-        Incident incident = new Incident(
-                new Client("name", "surname", "email@example.com", "password"),
-                unit, new BigDecimal(24.113705),
-                new BigDecimal(56.254896),
-                LocalDateTime.now());
+
         //given
         wireMock.stubFor(get(urlPathEqualTo("/maps/api/distancematrix/json"))
                 .willReturn(aResponse()
                         .withStatus(500)));
         //then
-        Assertions.assertThrows(IllegalStateException.class, () -> routeGateway.calculateRoute(unit, incident));
+        Assertions.assertThrows(IllegalStateException.class, () -> routeGateway.calculateRoute(unit, request));
     }
 }

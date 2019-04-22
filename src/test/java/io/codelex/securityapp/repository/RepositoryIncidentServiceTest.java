@@ -16,6 +16,7 @@ import java.math.RoundingMode;
 class RepositoryIncidentServiceTest {
 
     private IncidentRepository repository = Mockito.mock(IncidentRepository.class);
+    private ClientRepository clientRepository;
     private SimpleNearestUnitService nearestUnitService = Mockito.mock(SimpleNearestUnitService.class);
     private NotificationService notificationService = Mockito.mock(NotificationService.class);
     private RepositoryIncidentService service = new RepositoryIncidentService(
@@ -27,7 +28,7 @@ class RepositoryIncidentServiceTest {
     void should_save_incident() {
         //given
         AddIncidentRequest request = new AddIncidentRequest(
-                principal.getName(), email1, new BigDecimal(24.941887).setScale(6, RoundingMode.DOWN),
+                "john@doe.com", new BigDecimal(24.941887).setScale(6, RoundingMode.DOWN),
                 new BigDecimal(56.095740).setScale(6, RoundingMode.DOWN)
         );
         Mockito.when(repository.save(any()))
