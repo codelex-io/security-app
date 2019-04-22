@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.security.Principal;
 
 @RestController
@@ -67,6 +66,7 @@ class ClientAuthenticationController {
                                                 Principal principal) {
         return new ResponseEntity<>(incidentService.addIncident(
                 new AddIncidentRequest(
+                        principal.getName(),
                         request.getLatitude(),
                         request.getLongitude())),
                 HttpStatus.ACCEPTED);
