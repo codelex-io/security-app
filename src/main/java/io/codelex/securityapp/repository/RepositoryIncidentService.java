@@ -39,7 +39,7 @@ public class RepositoryIncidentService {
                 request.getLongitude().setScale(6, RoundingMode.DOWN),
                 LocalDateTime.now());
         incident = repository.save(incident);
-        notificationService.sendNotification("Client request for incident received.");
+        notificationService.sendNotification("Client rsequest for incident received.");
         notificationService.sendNotification("Notification to the closest nearestUnit sent");
         return incident;
     }
