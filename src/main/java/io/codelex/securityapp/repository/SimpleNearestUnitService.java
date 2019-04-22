@@ -1,5 +1,7 @@
 package io.codelex.securityapp.repository;
 
+import io.codelex.securityapp.NotificationService;
+import io.codelex.securityapp.api.AddIncidentRequest;
 import io.codelex.securityapp.repository.models.Incident;
 import io.codelex.securityapp.repository.models.Unit;
 import io.codelex.securityapp.route.RouteGateway;
@@ -20,8 +22,8 @@ public class SimpleNearestUnitService implements NearestUnitService {
     }
 
     @Override
-    public Unit searchNearestUnit(Incident incident) {
-        HashMap<Long, Unit> routeUnitHashMap = availableUnitHashMap(incident);
+    public Unit searchNearestUnit(AddIncidentRequest request) {
+        HashMap<Long, Unit> routeUnitHashMap = availableUnitHashMap(request);
 
         List<Long> closestUnits = new ArrayList<>(routeUnitHashMap.keySet());
         Collections.sort(closestUnits);
@@ -32,12 +34,12 @@ public class SimpleNearestUnitService implements NearestUnitService {
         return unit;
     }
 
-    private HashMap<Long, Unit> availableUnitHashMap(Incident incident) {
+    private HashMap<Long, Unit> availableUnitHashMap(AddIncidentRequest request) {
         List<Unit> unitList = new ArrayList<>(unitService.findAvailable());
 
         HashMap<Long, Unit> routeUnitHashMap = new HashMap<>();
         for (Unit unit : unitList) {
-            Long distance = routeGateway.calculateRoute(unit, incident);
+            Long distance = routeGateway.calculateRoute(unit, request);
             routeUnitHashMap.put(distance, unit);
         }
         return routeUnitHashMap;

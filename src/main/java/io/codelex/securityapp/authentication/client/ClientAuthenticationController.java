@@ -11,14 +11,14 @@ import io.codelex.securityapp.repository.models.Incident;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.security.Principal;
 
 @RestController
 @RequestMapping("/clients-api")
 class ClientAuthenticationController {
-    
+
     private final AuthService authService;
     private RepositoryClientService clientService;
     private RepositoryIncidentService incidentService;
@@ -62,11 +62,13 @@ class ClientAuthenticationController {
     }
 
     @PostMapping("/incident")
-    public ResponseEntity<Incident> newIncident(Principal principal) {
+    public ResponseEntity<Incident> newIncident(@Valid @RequestBody AddIncidentRequest request,
+                                                Principal principal) {
         return new ResponseEntity<>(incidentService.addIncident(
                 new AddIncidentRequest(
-                        new BigDecimal(56.941887),
-                        new BigDecimal(24.09574))),
+                        principal.getName(),
+                        request.getLatitude(),
+                        request.getLongitude())),
                 HttpStatus.ACCEPTED);
     }
 }
