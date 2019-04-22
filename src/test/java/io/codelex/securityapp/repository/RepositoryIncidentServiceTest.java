@@ -21,13 +21,13 @@ class RepositoryIncidentServiceTest {
     private RepositoryIncidentService service = new RepositoryIncidentService(
             nearestUnitService,
             repository,
-            notificationService);
+            notificationService, clientRepository);
 
     @Test
     void should_save_incident() {
         //given
         AddIncidentRequest request = new AddIncidentRequest(
-                new BigDecimal(24.941887).setScale(6, RoundingMode.DOWN),
+                principal.getName(), email1, new BigDecimal(24.941887).setScale(6, RoundingMode.DOWN),
                 new BigDecimal(56.095740).setScale(6, RoundingMode.DOWN)
         );
         Mockito.when(repository.save(any()))

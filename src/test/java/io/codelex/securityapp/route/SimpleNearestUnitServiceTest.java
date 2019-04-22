@@ -1,7 +1,6 @@
 package io.codelex.securityapp.route;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import io.codelex.securityapp.NotificationService;
 import io.codelex.securityapp.Password;
 import io.codelex.securityapp.repository.RepositoryUnitService;
 import io.codelex.securityapp.repository.SimpleNearestUnitService;
@@ -62,7 +61,7 @@ class SimpleNearestUnitServiceTest {
         Incident incident = new Incident(
                 //Brivibas piemineklis
                 new Client("name", "surname", "email@example.com", "password"),
-                new BigDecimal(56.951855),
+                unit, new BigDecimal(56.951855),
                 new BigDecimal(24.113781),
                 LocalDateTime.now());
 

@@ -14,19 +14,23 @@ public class Incident {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Client client;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Unit unit;
+
     private BigDecimal latitude;
     private BigDecimal longitude;
     private LocalDateTime createTime;
 
-    public Incident(Client client, BigDecimal latitude, BigDecimal longitude, LocalDateTime startTime) {
+    public Incident(Client client, Unit unit, BigDecimal latitude, BigDecimal longitude, LocalDateTime startTime) {
         this.client = client;
+        this.unit=unit;
         this.latitude = latitude;
         this.longitude = longitude;
         this.createTime = startTime;
     }
 
-    public LocalDateTime getCreateTime() {
-        return createTime;
+    public Unit getUnit() {
+        return unit;
     }
 
     public Client getClient() {
@@ -40,4 +44,9 @@ public class Incident {
     public BigDecimal getLongitude() {
         return longitude;
     }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
 }

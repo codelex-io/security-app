@@ -45,7 +45,7 @@ class RouteGatewayTest {
         );
         Incident incident = new Incident(
                 new Client("name", "surname", "email@example.com", "password"),
-                new BigDecimal(24.113705),
+                unit, new BigDecimal(24.113705),
                 new BigDecimal(56.254896),
                 LocalDateTime.now());
 
@@ -74,7 +74,7 @@ class RouteGatewayTest {
         );
         Incident incident = new Incident(
                 new Client("name", "surname", "email@example.com", "password"),
-                new BigDecimal(24.113705),
+                unit, new BigDecimal(24.113705),
                 new BigDecimal(56.254896),
                 LocalDateTime.now());
         //given

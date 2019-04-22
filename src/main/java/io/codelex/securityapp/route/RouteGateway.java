@@ -1,5 +1,6 @@
 package io.codelex.securityapp.route;
 
+import io.codelex.securityapp.api.AddIncidentRequest;
 import io.codelex.securityapp.repository.models.Incident;
 import io.codelex.securityapp.repository.models.Unit;
 import org.slf4j.Logger;
@@ -22,13 +23,13 @@ public class RouteGateway {
 
     private final GoogleMapsProps props;
 
-    public Long calculateRoute(Unit unit, Incident incident) {
+    public Long calculateRoute(Unit unit, AddIncidentRequest request) {
 
         BigDecimal unitLatitude = unit.getLatitude().setScale(6, RoundingMode.DOWN);
         BigDecimal unitLongitude = unit.getLongitude().setScale(6, RoundingMode.DOWN);
 
-        BigDecimal incidentLatitude = incident.getLatitude().setScale(6, RoundingMode.DOWN);
-        BigDecimal incidentLongitude = incident.getLongitude().setScale(6, RoundingMode.DOWN);
+        BigDecimal incidentLatitude = request.getLatitude().setScale(6, RoundingMode.DOWN);
+        BigDecimal incidentLongitude = request.getLongitude().setScale(6, RoundingMode.DOWN);
         try {
             URI uri = UriComponentsBuilder.fromHttpUrl(props.getApiUrl())
                     .path("/maps/api/distancematrix/json")
