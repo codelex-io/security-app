@@ -60,6 +60,5 @@ public class RepositoryUnitService {
     public List<Unit> findAllUnits() {
         return new ArrayList<>(unitRepository.findAll());
     }
-
 }
 

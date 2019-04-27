@@ -1,7 +1,6 @@
 package io.codelex.securityapp.route;
 
 import io.codelex.securityapp.api.AddIncidentRequest;
-import io.codelex.securityapp.repository.models.Incident;
 import io.codelex.securityapp.repository.models.Unit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

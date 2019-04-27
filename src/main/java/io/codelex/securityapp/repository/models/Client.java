@@ -40,5 +40,8 @@ public class Client {
     public String getPassword() {
         return password;
     }
-    
+
+    public Long getId() {
+        return id;
+    }
 }

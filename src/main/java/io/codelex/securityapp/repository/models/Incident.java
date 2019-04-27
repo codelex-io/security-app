@@ -29,6 +29,9 @@ public class Incident {
         this.createTime = startTime;
     }
 
+    public Incident() {
+    }
+
     public Unit getUnit() {
         return unit;
     }
@@ -49,4 +52,7 @@ public class Incident {
         return createTime;
     }
 
+    public Long getId() {
+        return id;
+    }
 }
