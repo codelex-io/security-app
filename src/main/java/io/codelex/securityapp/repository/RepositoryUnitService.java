@@ -57,5 +57,9 @@ public class RepositoryUnitService {
                 .orElseThrow(NoSuchElementException::new);
     }
 
+    public List<Unit> findAllUnits() {
+        return new ArrayList<>(unitRepository.findAll());
+    }
+
 }
 

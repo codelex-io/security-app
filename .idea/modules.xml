@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/security-app.iml" filepath="$PROJECT_DIR$/.idea/modules/security-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/security-app.iml" filepath="$PROJECT_DIR$/.idea/modules/security-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/security-app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/security-app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/security-app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/security-app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/security-app.test.iml" filepath="$PROJECT_DIR$/.idea/modules/security-app.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/security-app.test.iml" filepath="$PROJECT_DIR$/.idea/modules/security-app.test.iml" />
     </modules>
   </component>

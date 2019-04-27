@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Component
@@ -47,6 +49,10 @@ public class RepositoryIncidentService {
     public Incident findById(Long id) {
         return repository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
+    }
+
+    public List<Incident> findAllIncident() {
+        return new ArrayList<>(repository.findAll());
     }
 
 }
