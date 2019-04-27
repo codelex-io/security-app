@@ -81,4 +81,10 @@ class AdminController {
     public ResponseEntity<List<Client>> findAllClients() {
         return new ResponseEntity<>(clientService.findAllClients(), HttpStatus.OK);
     }
+
+    @PostMapping("/sign-out")
+    public ResponseEntity signOut() {
+            authService.clearAuthentication();
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
 }
