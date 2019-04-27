@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/units-api")
 class UnitAuthenticationController {
     private final AuthService authService;
     private final RepositoryUnitService unitService;
 
-    UnitAuthenticationController(AuthService authService,
-                                 RepositoryUnitService unitService) {
+    public UnitAuthenticationController(AuthService authService, RepositoryUnitService unitService) {
         this.authService = authService;
         this.unitService = unitService;
     }
@@ -52,5 +52,10 @@ class UnitAuthenticationController {
     @GetMapping("/account")
     public String account(Principal principal) {
         return principal.getName();
+    }
+
+    @GetMapping("/units/all")
+    public ResponseEntity<List<Unit>> findAllUnits() {
+        return new ResponseEntity<>(unitService.findAllUnits(), HttpStatus.OK);
     }
 }

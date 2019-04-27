@@ -5,6 +5,8 @@ import io.codelex.securityapp.api.*;
 import io.codelex.securityapp.repository.models.Client;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Component
@@ -51,4 +53,9 @@ public class RepositoryClientService {
         String correct = input.toLowerCase().replaceAll("\\s+", "");
         return correct.toLowerCase().trim().substring(0, 1).toUpperCase() + correct.substring(1);
     }
+
+    public List<Client> findAllClients() {
+        return new ArrayList<>(clientRepository.findAll());
+    }
+
 }
